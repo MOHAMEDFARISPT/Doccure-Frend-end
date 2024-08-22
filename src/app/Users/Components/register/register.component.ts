@@ -51,6 +51,8 @@ onSubmit() {
     this.userService.registerUser(this.userForm.value).subscribe({
       next:(response)=>{
         if(response.success){
+          alert(response.message)
+
           console.log("response",response)
           // this.toasterService.showSuccess(response.message)
         }
@@ -58,7 +60,7 @@ onSubmit() {
       },
       error:(error)=>{
       
-        
+        alert(error.error.message)
         console.log("error",error.error.message)
         // this.toasterService.showError(error.error.message)
 
