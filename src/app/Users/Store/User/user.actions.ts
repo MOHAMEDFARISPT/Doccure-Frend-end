@@ -1,8 +1,18 @@
-// import { createAction, props } from '@ngrx/store';
-// import { CreateUserDto } from '../../../shared/dtos/create-user.dto';
-// import { userModel } from './userModel';
+import { createAction, props } from '@ngrx/store';
+import { CreateUserDto } from '../../../shared/dtos/create-user.dto';
+import { UserModel, user } from './userModel';
+import { UserData } from '../../../shared/interfaces/Auth';
 
 
-// export const registerUser = createAction('[Auth] Register User',props<{ userData: CreateUserDto }>());
-// export const registerUserSuccess = createAction('[Auth] Register User Success',props<{ user: userModel }>());
-// export const registerUserFailure = createAction('[Auth] Register User Failure',props<{ error: string }>());
+
+
+
+
+
+
+
+
+//login user
+export const loginUser = createAction('[Auth] Login User', props<{ email: string; password: string }>());
+export const loginSuccess = createAction('[Auth] Login Success',props<{ user: UserModel; Token: string }>());
+export const loginFailure = createAction('[Auth] Login Failure', props<{ error: string }>());

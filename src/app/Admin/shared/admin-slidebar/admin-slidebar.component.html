@@ -1,0 +1,143 @@
+<body class="flex h-screen ">
+    <!-- Toggle Button for Mobile View -->
+    <button id="sidebar-toggle" class="fixed top-3 left-3 z-40 p-2 bg-transparent rounded-md md:hidden" (click)="toggleSidebar()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          
+    </button>
+  
+    <!-- Sidebar -->
+    <aside id="sidebar" [ngClass]="{'translate-x-0': isSidebarOpen, '-translate-x-full': !isSidebarOpen}" class="fixed inset-0 z-30 flex-shrink-0 w-64 border-gray-200 text-black transform md:translate-x-0 md:relative transition-transform duration-300  md:bg-gray-100">
+        <div class="h-full flex flex-col bg-gray-100 shadow">
+            <!-- User Profile -->
+            <div class="bg-gray-100 mb-2 text-center mt-5 h-20 p-2 text-black">
+              <svg class="h-12 w-12 ml-20 text-red-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />  <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />  <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z" />  <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z" />  <path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z" />  <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" />  <path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z" />  <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z" /></svg>
+                
+                
+            </div>
+  
+  
+            <!-- Sidebar Navigation -->
+            <nav class="flex-1 overflow-y-auto">
+                <ul class="space-y-1">
+                    <!-- Sidebar Items -->
+                    <li routerLink="/Admin-Dashboard" class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Dashboard'}">
+                      <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Dashboard')" aria-label="Dashboard">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8v-10h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Dashboard</span>
+                      </a>
+                    </li>
+                    
+
+                    <li routerLink="/Approvel-Requests" class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Requests'}">
+                      <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Requests')" aria-label="Requests">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M3 3v18h18V3H3zm9 14l-4-4h3V9h2v4h3l-4 4zm1-11h6v2h-6V6zm0 4h6v2h-6v-2zm0 4h6v2h-6v-2z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Requests</span>
+                      </a>
+                    </li>
+                    
+            
+                   
+            
+                    <li class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Doctor Management'}">
+                      <a  class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Doctor Management')" aria-label="Doctor Management">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20 4h-3V2h-2v2H9V2H7v2H4a2 2 0 0 0-2 2v15a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V6a2 2 0 0 0-2-2zM4 6h16v2H4V6zm1 14v-7h6v7H5zm7 0v-7h6v7h-6zm8 0h-1v-7h1v7z"/>
+                          <path d="M12 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM7 11h2v2H7v-2zM9 13h2v2H9v-2zM7 15h2v2H7v-2z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Doctor Management</span>
+                      </a>
+                    </li>
+                    
+            
+                    <li routerLink="/Admin-patients-list" class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Patient Management'}">
+                      <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Patient Management')" aria-label="Patient Management">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm7 2h-2.76A6.978 6.978 0 0 1 12 13a6.978 6.978 0 0 1-4.24-1H5a5 5 0 0 0-5 5v3a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1v-3a5 5 0 0 0-5-5z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Patient Management</span>
+                      </a>
+                    </li>
+                    
+            
+                    <li class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Appointments'}">
+                      <a  class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Appointments')" aria-label="Appointments">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 18H5V10h14v11zM7 12h2v2H7v-2zm4 0h6v2h-6v-2z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Appointments</span>
+                      </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Departments'}">
+                      <a  class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Departments')" aria-label="Departments">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 2L2 7v13h8v-5h4v5h8V7L12 2zm7 16h-3v-5H8v5H5V8.33l7-3.11 7 3.11V18z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Departments</span>
+                      </a>
+                    </li>
+                    
+            
+                    <li class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Report Management'}">
+                      <a  class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Report Management')" aria-label="Report Management">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M11 2v20h-7V2h7zm1-2H3v24h9V0zM22 6h-8V2h8v4zm-2-2h-4v2h4V4zm2 8h-8v-4h8v4zm-2-2h-4v2h4v-2zm2 8h-8v-4h8v4zm-2-2h-4v2h4v-2z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Report Management</span>
+                      </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Transactions'}">
+                      <a  class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Transactions')" aria-label="Transactions">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20 7H4c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 9H4v-7h16v7zm-11-2h6v2h-6v-2zm6-4h-6v2h6V10zM2 9V7h20v2H2z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Transactions</span>
+                      </a>
+                    </li>
+                    
+            
+                    <li class="sidebar-item" [ngClass]="{'bg-gray-300 text-black': activeItem === 'Settings'}">
+                      <a  class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Settings')" aria-label="Settings">
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 1c-1.1 0-2 .9-2 2v1.18C8.84 4.4 7.57 5.08 6.53 6.12l-.84-.84a2 2 0 0 0-2.83 0L2.34 6.59a2 2 0 0 0 0 2.83l.84.84c-1.04 1.04-1.72 2.31-1.94 3.65H2c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1.18c.23 1.34.91 2.61 1.94 3.65l-.84.84a2 2 0 0 0 0 2.83l1.42 1.42a2 2 0 0 0 2.83 0l.84-.84c1.04 1.04 2.31 1.72 3.65 1.94V22c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v1.18c1.34-.23 2.61-.91 3.65-1.94l.84.84a2 2 0 0 0 2.83 0l1.42-1.42a2 2 0 0 0 0-2.83l-.84-.84c1.04-1.04 1.72-2.31 1.94-3.65H22c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2h-1.18c-.23-1.34-.91-2.61-1.94-3.65l.84-.84a2 2 0 0 0 0-2.83l-1.42-1.42a2 2 0 0 0-2.83 0l-.84.84c-1.04-1.04-2.31-1.72-3.65-1.94V3c0-1.1-.9-2-2-2h-2zm0 7c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/>
+                        </svg>
+                        <span class="ml-3 py-2 px-2 font-mono">Settings</span>
+                      </a>
+                    </li>
+                    
+                    <div class="mt-28 ml-2">
+                       
+<button
+  class="group flex items-center justify-start w-11 h-11 bg-green-950 opacity-40 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32 hover:rounded-lg active:translate-x-1 active:translate-y-1"
+>
+  <div
+    class="flex items-center justify-center w-full transition-all duration-300 group-hover:justify-start group-hover:px-3"
+  >
+    <svg class="w-4 h-4" viewBox="0 0 512 512" fill="white">
+      <path
+        d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+      ></path>
+    </svg>
+  </div>
+  
+    <div routerLink="/Admin-login" class="absolute right-5 transform translate-x-full opacity-0 text-white text-lg font-semibold transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+        Logout
+      </div>
+
+ 
+</button>
+
+                    </div>
+                </ul>
+            </nav>
+            
+        </div>
+    </aside>
+</body>

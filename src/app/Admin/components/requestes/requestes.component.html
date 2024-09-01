@@ -1,0 +1,115 @@
+
+<div class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="flex flex-row w-full">
+      <!-- Sidebar -->
+      <app-admin-slidebar class="lg:w-1/5"></app-admin-slidebar>
+  
+      <!-- Main Content -->
+      <div class="container mx-auto p-4 lg:w-4/5 py-10">
+        <!-- Header Section -->
+        <div class="flex justify-between items-center mt-10">
+          <!-- Left: List of Patients -->
+          <h3 class="text-black font-bold ml-5">Doctor Requests</h3>
+          
+          <!-- Right: Icon Button -->
+          <div class="inline relative">
+            <button type="button" class="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg">
+              <div class="pl-1">
+                <svg
+                  viewBox="0 0 32 32"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  role="presentation"
+                  focusable="false"
+                  style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"
+                >
+                  <g fill="none" fill-rule="nonzero">
+                    <path d="m2 16h28"></path>
+                    <path d="m2 24h28"></path>
+                    <path d="m2 8h28"></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="block flex-grow-0 flex-shrink-0 h-10 w-12 pl-5">
+                <svg
+                  viewBox="0 0 32 32"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  role="presentation"
+                  focusable="false"
+                  style="display: block; height: 100%; width: 100%; fill: currentcolor;"
+                >
+                  <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"></path>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Patient List Section -->
+        <div class="container mt-4">
+          <div class="row">
+            <!-- First Card -->
+            <div class="bg-gray-100 p-6 min-h-screen">
+              <!-- Check if there are doctor requests -->
+              <div *ngIf="doctorDetails && doctorDetails.length > 0; else noRequests">
+                <div class="w-full mb-4" *ngFor="let doctor of doctorDetails">
+                  <div class="border border-black h-full flex flex-col p-6 rounded-lg shadow-lg">
+                    <!-- Upper Section: Two Columns -->
+                    <div class="flex flex-col md:flex-row md:justify-between">
+                      <!-- Left Section -->
+                      <div class="md:w-1/3 flex flex-col items-start mb-4 md:mb-0">
+                        <img src="/assets/Images/Ảnh profile.jpeg" alt="Doctor Profile" class="w-24 h-24 rounded-full object-cover mb-4">
+                        <p class="mb-2"><strong>Name:</strong> Dr. {{ doctor.personalDetails.firstname }} {{ doctor.personalDetails.lastname }}</p>
+                        <p class="mb-2"><strong>Email:</strong> {{ doctor.personalDetails.email }}</p>
+                        <p class="mb-2"><strong>Department:</strong> {{ doctor.professionalDetails.specialisedDepartment }}</p>
+                      </div>
+              
+                      <!-- Center Section -->
+                      <div class="md:w-1/3 flex flex-col items-start mb-4 md:mb-0">
+                        <p class="mb-2"><strong>Contact Number:</strong> {{ doctor.personalDetails.contactNumber }}</p>
+                        <p class="mb-2"><strong>Address:</strong> {{ doctor.generalDetails.city }}, {{ doctor.generalDetails.state }}, {{ doctor.generalDetails.country }}</p>
+                        <p class="mb-2"><strong>Gender:</strong> {{ doctor.personalDetails.gender }}</p>
+                      </div>
+              
+                      <!-- Right Section -->
+                      <div class="md:w-1/3 flex flex-col items-start mb-4 md:mb-0">
+                        <p class="mb-2"><strong>Medical Licence Number:</strong> {{ doctor.professionalDetails.medicalLicenceNumber }}</p>
+                        <p class="mb-2"><strong>Patients Per Day:</strong> {{ doctor.professionalDetails.patientsPerDay }}</p>
+                        <p class="mb-2"><strong>Consultation Fee:</strong> {{ doctor.professionalDetails.consultationFee }}</p>
+                      </div>
+                    </div>
+              
+                    <!-- Bottom Section: Accept Request Button -->
+                    <div class="mt-6">
+                      <button *ngIf="!loadingMap[doctor._id]; else loadingTemplate" type="button" (click)="acceptRequest(doctor._id)" class="bg-blue-500 text-white w-full py-2 rounded-md hover:bg-green-600">
+                        Accept Request
+                      </button>
+                      <ng-template #loadingTemplate>
+                        <div class="flex justify-center items-center w-full py-2">
+                          <svg class="animate-spin h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.372 0 0 5.372 0 12h4z"></path>
+                          </svg>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              
+              <!-- Template for No Requests -->
+              <ng-template #noRequests>
+                <div class="text-center p-6">
+                  <p class="text-gray-600">No doctor requests available.</p>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

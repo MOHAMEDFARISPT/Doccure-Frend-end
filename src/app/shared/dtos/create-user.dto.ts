@@ -4,5 +4,5 @@ export interface CreateUserDto {
   email: string;
   gender: 'Male' | 'Female' | 'Other';
   dateOfBirth: string; 
-  refreshToken?: string; 
+  contactNumber:string;
 }

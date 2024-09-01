@@ -1,0 +1,125 @@
+<body class="flex h-screen bg-blue-500">
+    <!-- Toggle Button for Mobile View -->
+    <button id="sidebar-toggle" class="fixed top-3 left-3 z-40 p-2 bg-transparent rounded-md md:hidden" (click)="toggleSidebar()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          
+    </button>
+  
+    <!-- Sidebar -->
+    <aside id="sidebar" [ngClass]="{'translate-x-0': isSidebarOpen, '-translate-x-full': !isSidebarOpen}" class="fixed inset-0 z-30 flex-shrink-0 w-64 border-gray-200 text-black transform md:translate-x-0 md:relative transition-transform duration-300 bg-gray-100 md:bg-gray-100">
+        <div class="h-full flex flex-col">
+            <!-- User Profile -->
+            <div class="bg-gray-100 mb-2 p-2 text-black">
+                <div class="flex flex-col items-center border-gray-700">
+                  <i class="fas fa-user-circle text-gray-400 text-5xl mb-1"></i>
+                 
+                  <p class="font-semibold">John Doe</p>
+                  <p class="text-xs">Dep:Orthopediac</p>
+                  <p class="text-xs">email:farismoammed076mail.com</p>
+                </div>
+                <hr class="bg-gray-600 mx-auto">
+              </div>
+  
+           
+  
+            <!-- Sidebar Navigation -->
+            <nav class="flex-1 overflow-y-auto mt-8">
+                <ul class="space-y-1">
+                    <!-- Sidebar Items -->
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Dashboard'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Dashboard')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zM13 3v18h8V3h-8z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Requests'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Requests')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 3v2H4v14h16V5h-5V3h7v18H2V3h7zm-2 10h10v-2H7v2zm0 4h10v-2H7v2zm0-8h10V7H7v2z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Requests</span>
+                        </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Appointments'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Appointments')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3h-1V2h-2v1H8V2H6v1H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 18H5V8h14v13zM8 11h2v2H8v-2zm4 0h2v2h-2v-2z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Appointments</span>
+                        </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Available Times'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Available Times')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8v-2H6V4h8v2h4a2 2 0 0 0 2-2V2h-4zm-1 5h-4V5h4v2zM5 10h14v2H5v-2zm0 4h14v2H5v-2zm0 4h14v2H5v-2z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Available Times</span>
+                        </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'My Patients'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('My Patients')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 15.36a3.36 3.36 0 1 0 0-6.72 3.36 3.36 0 0 0 0 6.72zm0-9.36a6 6 0 0 1 5.28 8.68l1.72 2.36-2.28.8A6 6 0 0 1 9.76 6l-2.28-.8L5.2 8.4A6 6 0 0 1 12 6zm0-2a8 8 0 0 0-6.85 11.58l-1.55 2.2 2.28.8A8 8 0 0 0 12 2zm7.28 12.92a8 8 0 0 0-6.28-6.6l1.8 2.68L19.8 16a8 8 0 0 0-1.52 4.56z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">My Patients</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Wallet'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Wallet')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4C6.48 4 2 8.48 2 14s4.48 10 10 10 10-4.48 10-10S17.52 4 12 4zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v4h-2zm0 6h2v2h-2z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Wallet</span>
+                        </a>
+                    </li>
+                    
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Messages'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Messages')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 3H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1 14h-2v-2h2v2zm0-4h-2v-2h2v2zm-4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm-4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm-4 4H6v-2h2v2zm0-4H6v-2h2v2z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Messages</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Blogs'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Blogs')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3v18h18V3H3zm16 16H5V5h14v14zm-7-7v-4h-2v6h6v-2h-4z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Blogs</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="sidebar-item" [ngClass]="{'bg-blue-900 text-white': activeItem === 'Settings'}">
+                        <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Settings')">
+                            <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19.14 12.94l1.43-1.43a2.2 2.2 0 0 0 0-3.11l-1.43-1.43a2.2 2.2 0 0 0-3.11 0l-1.43 1.43a6.984 6.984 0 0 0-3.69-1.01V3.5h-2v3.4a6.984 6.984 0 0 0-3.69 1.01L5.97 7.97a2.2 2.2 0 0 0-3.11 0L1.43 9.4a2.2 2.2 0 0 0 0 3.11l1.43 1.43a6.984 6.984 0 0 0 0 4.92L1.43 18.97a2.2 2.2 0 0 0 0 3.11l1.43 1.43a2.2 2.2 0 0 0 3.11 0l1.43-1.43a6.984 6.984 0 0 0 3.69 1.01v3.4h2v-3.4a6.984 6.984 0 0 0 3.69-1.01l1.43 1.43a2.2 2.2 0 0 0 3.11 0l1.43-1.43a2.2 2.2 0 0 0 0-3.11l-1.43-1.43a6.984 6.984 0 0 0 0-4.92zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+                            </svg>
+                            <span class="ml-3 font-medium py-2 px-2">Settings</span>
+                        </a>
+                    </li>
+
+
+                    
+                    
+
+
+                </ul>
+            </nav>
+
+        </div>
+        
+    </aside>
+</body>

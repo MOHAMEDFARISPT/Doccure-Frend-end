@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './sharedComponents/Components/navBar/navbar.component';
 import { FooterComponent } from "./sharedComponents/Components/footer/footer.component";
@@ -12,9 +12,11 @@ import { DoctorSignupComponent } from "./Doctors/Components/doctor-signup/doctor
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MyAppointmentsComponent } from './Users/Components/my-appointments/my-appointments.component';
+import { AdminRegistercomponent } from './Admin/components/admin-registercomponent/admin-registercomponent.component';
+import { AdminloginComponent } from './Admin/components/adminlogin-component/adminlogin-component.component';
+import { AdminDashboardComponent } from './Admin/components/admin-dashboard/admin-dashboard.component';
+
 
 
 
@@ -26,15 +28,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   standalone: true,
   imports: [
     HttpClientModule,
-     RouterOutlet,
-     NavbarComponent,
-     FooterComponent, RegisterComponent, UserLoginComponent, RouterModule, DoctorLoginComponent, DoctorSignupComponent],
+     RouterOutlet, NavbarComponent,FooterComponent,
+     RegisterComponent, UserLoginComponent, RouterModule,
+     DoctorLoginComponent,DoctorSignupComponent,MyAppointmentsComponent,
+     AdminRegistercomponent,AdminloginComponent,AdminDashboardComponent
+      ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent  {
 title = 'Doccure-FrendEnd';
-
 
 
 

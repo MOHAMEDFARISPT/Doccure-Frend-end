@@ -1,0 +1,10 @@
+.info-icon {
+    font-size: 16px; /* Adjust size as needed */
+    cursor: pointer;
+    color: #007bff; /* Change color if needed */
+  }
+  
+  .info-icon:hover {
+    color: #0056b3; /* Change hover color if needed */
+  }
+  

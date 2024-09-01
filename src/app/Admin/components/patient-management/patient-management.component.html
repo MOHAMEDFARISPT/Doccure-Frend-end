@@ -1,0 +1,122 @@
+<div class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="flex flex-row lg:flex-row w-full">
+        <!-- Sidebar -->
+        <app-admin-slidebar class="lg:w-1/5"></app-admin-slidebar>
+
+        <div class="container mx-auto p-4 mt-0 lg:w-4/5">
+          
+            <!-- Search Bar -->
+            <div class="flex justify-end">
+                <div class="inline relative">
+                    <button type="button" class="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg">
+                        <div class="pl-1">
+                            <svg
+                                viewBox="0 0 32 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                role="presentation"
+                                focusable="false"
+                                style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"
+                            >
+                                <g fill="none" fill-rule="nonzero">
+                                    <path d="m2 16h28"></path>
+                                    <path d="m2 24h28"></path>
+                                    <path d="m2 8h28"></path>
+                                </g>
+                            </svg>
+                        </div>
+    
+                        <div class="block flex-grow-0 flex-shrink-0 h-10 w-12 pl-5">
+                            <svg
+                                viewBox="0 0 32 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                role="presentation"
+                                focusable="false"
+                                style="display: block; height: 100%; width: 100%; fill: currentcolor;"
+                            >
+                                <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        
+               
+          
+        <!-- search and filters -->
+        <div class="p-4 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 gap-2">
+            <!-- Title -->
+            <h3 class=" text-black flex justify-start font-bold">List Of Patients</h3>
+        
+            <!-- Filters Section -->
+            <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                <!-- Filter Dropdown -->
+                <div class="relative inline-block text-left">
+                    <button (click)="toggleDropdown()" class="inline-flex justify-start w-full px-10 mt-0 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none">
+                        Filter By
+                        <svg class="w-5 h-5 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div *ngIf="dropdownOpen" class="absolute right-0 w-64 mt-2 origin-top-right bg-white border border-gray-300 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div class="py-1">
+                            <div class="px-4 py-2">
+                                <label class="block text-sm font-medium text-gray-700">Doctor's Name</label>
+                                <input type="text" class="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Enter doctor's name">
+                            </div>
+                            <div class="px-4 py-2">
+                                <label class="block text-sm font-medium text-gray-700">Appointment Type</label>
+                                <select class="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                    <option>Video Call</option>
+                                    <option>Chat</option>
+                                    <option>Direct Consultation</option>
+                                </select>
+                            </div>
+                            <div class="px-4 py-2">
+                                <label class="block text-sm font-medium text-gray-700">Department</label>
+                                <select class="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                    <option>Cardiology</option>
+                                    <option>Neurology</option>
+                                    <option>Orthopedics</option>
+                                    <option>Pediatrics</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between px-4 py-2">
+                                <button (click)="resetFilters()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none">Reset</button>
+                                <button (click)="saveFilters()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Date Filter -->
+                <input type="date" class="w-full md:w-auto p-2 border border-gray-300 rounded-md">
+        
+                <!-- Search Bar -->
+                <div class="p-5 overflow-hidden w-[60px] h-[60px] hover:w-[270px] bg-[#4070f4] shadow-[2px_2px_20px_rgba(0,0,0,0.08)] rounded-full flex group items-center hover:duration-300 duration-300">
+                    <div class="flex items-center justify-center fill-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="22" height="22">
+                            <path d="M18.9,16.776A10.539,10.539,0,1,0,16.776,18.9l5.1,5.1L24,21.88ZM10.5,18A7.5,7.5,0,1,1,18,10.5,7.507,7.507,0,0,1,10.5,18Z"></path>
+                        </svg>
+                    </div>
+                    <input type="text" class="outline-none text-[20px] bg-transparent w-full text-white font-normal px-4" placeholder="Search">
+                </div>
+            </div>
+        </div>
+        
+        <hr class="text-black">
+        
+
+           <app-humanlisting-table [tableHeaders]="patientTableHeaders" [tableData]="patientTableData"></app-humanlisting-table>
+       
+          
+          
+            
+        </div>
+      
+    </div>
+    
+</div>

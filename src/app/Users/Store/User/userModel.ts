@@ -1,17 +1,21 @@
-export type userModel={
-    _id?:string,
-    firstname?:string,
-    lastname?:string,
-    gender?: string,
-    dateOfBirth?: Date,
-    email?:string,
-    password?:string,
-    profileImage?:string,
-    isAdmin?:boolean,
-    isBlocked?:true,
-    phoneNumber?:number
+// userModel.ts
+export type UserModel = {
+    _id?: string;
+    firstName?: string;
+    lastName?: string;
+    gender?: string;
+    dateOfBirth?: Date;
+    contactNumber?:string,
+    email?: string;
+    password?: string;
+    profileImage?: string;
+    isAdmin?: boolean;
+    isBlocked?: boolean;
+    phoneNumber?: number;
+  };
 
 
-
-
-}
+  export interface user{
+    user:UserModel
+  }
+  

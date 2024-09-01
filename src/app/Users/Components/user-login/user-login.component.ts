@@ -4,20 +4,48 @@ import { RouterModule } from '@angular/router';
 import { UserServicesService } from '../../services/user-services.service';
 import { noWhitespaceValidator } from '../../utility/formvalidation';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { NavbarComponent } from '../../../sharedComponents/Components/navBar/navbar.component';
+import { FooterComponent } from '../../../sharedComponents/Components/footer/footer.component';
+import { Store, StoreModule } from '@ngrx/store';
+import { loginUser } from '../../Store/User/user.actions';
+import { userreducer } from '../../Store/User/user.reducer';
+import { Observable } from 'rxjs';
+import { selectLoading } from '../../Store/User/user.selector';
+import { SpinnerComponent } from '../../../sharedComponents/Components/spinner/spinner.component';
+import { UserLoginData } from '../../../shared/interfaces/Auth';
+import { LoginDTO } from '../../../shared/dtos/user.dto';
 
 @Component({
   selector: 'app-user-login',
   standalone: true,
-  imports: [RouterModule,CommonModule,ReactiveFormsModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NavbarComponent,
+    FooterComponent,
+    SpinnerComponent
+    
+
+  ],
   templateUrl: './user-login.component.html',
   styleUrl: './user-login.component.css'
 })
 export class UserLoginComponent implements OnInit {
   userForm!: FormGroup;
+  loading$!: Observable<boolean>;
+  userLoaginData!:UserLoginData;
+  
 
 
-
-  constructor(private fb: FormBuilder, private userService: UserServicesService) {}
+  constructor(private fb: FormBuilder, 
+  private userService: UserServicesService,
+  private router:Router,
+  private store: Store,
+) {
+  this.loading$ = this.store.select(selectLoading);
+}
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
@@ -31,26 +59,16 @@ export class UserLoginComponent implements OnInit {
   onSubmit(){
 
 if(!this.userForm.invalid){
-  this.userService.loginUser(this.userForm.value).subscribe({
-    next:(response: any)=>{
+  const {email,password}=this.userForm.value
+  const loginDto=new LoginDTO(email,password)
 
-     const token=response.access_Token
-     if(token){
-      localStorage.setItem('authToken', token);
-     }
-     alert("login SuccessFully")
+if(loginDto.validate()){
+  this.store.dispatch(loginUser({email: loginDto.email,password:loginDto.password}))
 
-    
-    
-
-      
-    },
-    error:(error)=>{
-      alert(error)
-
-    }
-    
-  })
+}
+ 
+ 
+  
 }
 this.userForm.markAllAsTouched()
 
