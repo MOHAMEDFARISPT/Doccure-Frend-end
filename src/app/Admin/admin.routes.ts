@@ -4,6 +4,7 @@ import { AdminloginComponent } from "./components/adminlogin-component/adminlogi
 import { AdminDashboardComponent } from "./components/admin-dashboard/admin-dashboard.component";
 import { PatientManagementComponent } from "./components/patient-management/patient-management.component";
 import { RequestesComponent } from "./components/requestes/requestes.component";
+import { DoctorManagementComponent } from "./components/doctor-management/doctor-management.component";
 
 
 
@@ -12,7 +13,8 @@ export const AdminRouted: Routes = [
     {path:'Admin-login',component:AdminloginComponent},
     {path:'Admin-Dashboard',component:AdminDashboardComponent},
     {path:'Approvel-Requests',component:RequestesComponent},
-    {path:'Admin-patients-list',component:PatientManagementComponent}
+    {path:'Admin-patients-list',component:PatientManagementComponent},
+    {path:'Admin-Doctor-list',component:DoctorManagementComponent}
    
    
   ];

@@ -1,5 +1,23 @@
-
-export interface PersonalDetails {
+// user.model.ts
+export interface User {
+    _id?: string;
+    firstName?: string;
+    lastName?: string;
+    gender?: string;
+    dateOfBirth?: Date;
+    contactNumber?: string;
+    email?: string;
+    password?: string;
+    isOtpVerified?: boolean;
+    isBlocked?: boolean;
+    role?: string;
+    profileImage?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+  }
+  
+  // doctor.model.ts
+  export interface PersonalDetails {
     firstname: string;
     lastname: string;
     email: string;
@@ -7,10 +25,10 @@ export interface PersonalDetails {
     contactNumber: string;
     dateOfBirth: Date;
     password: string;
-    profileImage: string;
-    isApproved: boolean;
-    isBlocked: boolean;
     role: string;
+    isApproved: boolean;
+    profileImage: string;
+    isBlocked: boolean;
   }
   
   export interface GeneralDetails {
@@ -29,16 +47,12 @@ export interface PersonalDetails {
     consultationFee: number;
   }
   
-  export interface DoctorDetails {
+  export interface Doctor {
     _id: string;
     personalDetails: PersonalDetails;
     generalDetails: GeneralDetails;
     professionalDetails: ProfessionalDetails;
-  }
-  
-  export interface DoctorResponseDto {
-    success: boolean;
-    message: string;
-    data: DoctorDetails[];  // Ensure this matches your backend response structure
+    createdAt: Date;
+    updatedAt: Date;
   }
   

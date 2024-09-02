@@ -90,7 +90,7 @@ onRegisterSubmit() {
 
   if (this.userForm.valid) {
 
-    this.userService.registerUser({ userRegisterDetails: this.userForm.value }).subscribe({
+    this.userService.registerUser( this.userForm.value ).subscribe({
       next: (res) => {
         if (res.success) {
           this.toastr.success(res.message);

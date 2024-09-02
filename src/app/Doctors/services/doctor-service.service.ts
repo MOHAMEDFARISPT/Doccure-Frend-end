@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DoctorRegData } from '../../shared/interfaces/Auth';
+import { Doctor } from '../../GolbalStore/global.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class DoctorServiceService {
 
   constructor(private http:HttpClient) { }
 
-
+  getDoctors(): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${this.apiUrl}/loadDoctorDatas`);
+  }
 
   RegisterDoctor(doctorRegData: any):Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/Doctor-Register`,doctorRegData)

@@ -15,6 +15,7 @@ import { selectLoading } from '../../Store/User/user.selector';
 import { SpinnerComponent } from '../../../sharedComponents/Components/spinner/spinner.component';
 import { UserLoginData } from '../../../shared/interfaces/Auth';
 import { LoginDTO } from '../../../shared/dtos/user.dto';
+import { GoogleAuthService } from '../../../GoogleAuth/Google-auth.service';
 
 @Component({
   selector: 'app-user-login',
@@ -33,6 +34,7 @@ import { LoginDTO } from '../../../shared/dtos/user.dto';
   styleUrl: './user-login.component.css'
 })
 export class UserLoginComponent implements OnInit {
+
   userForm!: FormGroup;
   loading$!: Observable<boolean>;
   userLoaginData!:UserLoginData;
@@ -43,6 +45,7 @@ export class UserLoginComponent implements OnInit {
   private userService: UserServicesService,
   private router:Router,
   private store: Store,
+  private googleAuthService:GoogleAuthService
 ) {
   this.loading$ = this.store.select(selectLoading);
 }
@@ -66,16 +69,19 @@ if(loginDto.validate()){
   this.store.dispatch(loginUser({email: loginDto.email,password:loginDto.password}))
 
 }
- 
- 
   
 }
 this.userForm.markAllAsTouched()
 
-
   }
 
 
+  GoogleLogin() {
+   this.googleAuthService.loginWithGoogle()
+    }
+
+
+ 
 
 
 

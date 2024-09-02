@@ -38,8 +38,6 @@ onSubmit() {
   if(this.DoctorLoginForm.valid){
     
     const {email,password}=this.DoctorLoginForm.value
-    alert(email)
-    alert(password)
     this.store.dispatch(loginRequest({email,password}))
     
   }
