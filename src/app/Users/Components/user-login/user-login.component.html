@@ -14,85 +14,102 @@
 
 <!-- Right Side: Form -->
 <div class="w-full md:w-1/2 flex items-center justify-center">
-  <div class="w-full rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 border border-gray-400">
-    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+  <div class="w-full rounded-lg shadow-md md:mt-0 sm:max-w-md xl:p-0 border border-gray-300 bg-white">
+    <div class="p-6 space-y-6 md:space-y-8 sm:p-8">
       <div class="flex flex-col gap-4 md:flex-row md:gap-16">
-        <h1 class="text-2xl font-bold leading-tight tracking-tight text-black md:text-2xl">
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900 md:text-3xl">
           Patient Login
         </h1>
       </div>
 
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-6">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="space-y-6 md:space-y-8">
         <!-- Email -->
         <div class="relative">
-          <input required formControlName="email" id="email" class="peer w-full h-10 bg-transparent outline-none px-4 text-base rounded-xl bg-white border border-[#4070f4] focus:shadow-md" type="text"/>
-          <label class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-light text-base peer-focus:text-sm peer-focus:text-[#4070f4] peer-valid:top-0 peer-valid:left-3 peer-valid:text-sm peer-valid:text-[#4070f4] duration-150" for="email">Email Address</label>
+          <input 
+            required 
+            formControlName="email" 
+            id="email" 
+            class="peer w-full h-12 bg-transparent outline-none px-4 text-base rounded-lg bg-white border border-gray-300 focus:shadow-md focus:border-blue-500" 
+            type="text"
+          />
+          <label class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 peer-focus:top-[-10px] peer-focus:left-3 font-light text-base peer-focus:text-sm peer-focus:text-blue-500 peer-valid:top-[-10px] peer-valid:left-3 peer-valid:text-sm peer-valid:text-blue-500 duration-150" for="email">
+            Email Address
+          </label>
         </div>
         <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-red-600 mt-1">Email is required</div>
 
         <!-- Password -->
         <div class="relative">
-          <input required formControlName="password" id="password" autocomplete="off" class="peer w-full h-10 bg-transparent outline-none px-4 text-base rounded-xl bg-white border border-[#4070f4] focus:shadow-md" type="text"/>
-          <label class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 peer-focus:top-0 peer-focus:left-3 font-light text-base peer-focus:text-sm peer-focus:text-[#4070f4] peer-valid:top-0 peer-valid:left-3 peer-valid:text-sm peer-valid:text-[#4070f4] duration-150" for="password">Password</label>
+          <input 
+            required 
+            formControlName="password" 
+            id="password" 
+            autocomplete="off" 
+            class="peer w-full h-12 bg-transparent outline-none px-4 text-base rounded-lg bg-white border border-gray-300 focus:shadow-md focus:border-blue-500" 
+            type="password"
+          />
+          <label class="absolute top-1/2 translate-y-[-50%] bg-white left-4 px-2 peer-focus:top-[-10px] peer-focus:left-3 font-light text-base peer-focus:text-sm peer-focus:text-blue-500 peer-valid:top-[-10px] peer-valid:left-3 peer-valid:text-sm peer-valid:text-blue-500 duration-150" for="password">
+            Password
+          </label>
         </div>
         <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="text-red-600">Password is required</div>
 
         <!-- Submit Button -->
         <div class="justify-center items-center text-center">
-          <button *ngIf="!(loading$ | async)" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <button 
+            *ngIf="!(loading$ | async)" 
+            class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-20 rounded-lg hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300"
+          >
             <span class="text">Submit</span>
           </button>
-          
           
           <!-- Loader -->
           <div *ngIf="loading$ | async">
             <div class="flex-col gap-4 w-full flex items-center justify-center">
-              <div class="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full">
-                <div class="w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full"></div>
+              <div class="w-16 h-16 border-4 border-transparent text-blue-500 text-4xl animate-spin flex items-center justify-center border-t-blue-500 rounded-full">
+                <div class="w-12 h-12 border-4 border-transparent text-red-500 text-2xl animate-spin flex items-center justify-center border-t-red-500 rounded-full"></div>
               </div>
             </div>
           </div>
         </div>
 
-    
-        
-
+        <!-- Or Separator -->
         <div class="flex items-center justify-center my-4">
           <hr class="w-1/5 border-gray-300">
           <span class="mx-2 text-sm font-medium text-gray-500">Or</span>
           <hr class="w-1/5 border-gray-300">
         </div>
       
+        <!-- Google Login Button -->
         <button 
-        class="relative flex items-center ml-16 gap-3 px-24 py-3 max-w-xs bg-[#000000] text-white font-bold text-sm uppercase rounded-lg shadow-md hover:shadow-lg transition-all duration-600 ease-in-out"
-        (click)="GoogleLogin()">
-        Google
-        <span class="google-icon bg-white absolute right-0 h-full w-12 grid place-items-center rounded-r-lg">
-          <svg class="w-6 h-6 drop-shadow-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-            <path fill="#4285F4" d="M44.5 20H24v8.5h11.9C34.7 32.3 30.9 36 25 36c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.7 0 5.1 1 7 2.7l5.9-5.9C34.7 8.2 30 6 25 6 14.5 6 6 14.5 6 25s8.5 19 19 19c10.4 0 18.6-8.3 18.6-18.5 0-1.2-.1-2.5-.3-3.5H44.5z"/>
-            <path fill="#34A853" d="M10.7 15.3L15.8 19C16.9 16.2 20 14 25 14c2.7 0 5.1 1 7 2.7l5.9-5.9C34.7 8.2 30 6 25 6c-7.8 0-14.3 5.2-17 12.5l-.3.8z"/>
-            <path fill="#FBBC05" d="M42 19.1H24v9h10.9C33.7 33.1 30 36 25 36c-5.9 0-10.7-4.1-11.9-9.5H6c1.7 9 9.8 16 19 16 9.6 0 18-8 18-18 0-1.5-.2-3-.6-4.4l.6.1z"/>
-            <path fill="#EA4335" d="M24 8v9h10.6C34.2 14.3 30.6 10 25 10c-4.5 0-8.3 2.5-10.3 6L10.7 15C14 9.8 19.2 6 25 6c8.2 0 15 5.9 16.7 13.9l-.5.2L24 8z"/>
-          </svg>
-        </span>
-      </button>
-      
-      
-      
+          class="relative flex items-center mx-auto gap-3 px-36 py-3 bg-gray-800 text-white font-bold text-sm uppercase rounded-lg shadow-md hover:bg-gray-900 transition-all duration-300"
+          (click)="GoogleLogin()"
+        >
+          Google
+          <span class="google-icon bg-white absolute right-0 h-full w-12 grid place-items-center rounded-r-lg">
+            <svg class="w-6 h-6 drop-shadow-md" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+              <path fill="#4285F4" d="M44.5 20H24v8.5h11.9C34.7 32.3 30.9 36 25 36c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.7 0 5.1 1 7 2.7l5.9-5.9C34.7 8.2 30 6 25 6 14.5 6 6 14.5 6 25s8.5 19 19 19c10.4 0 18.6-8.3 18.6-18.5 0-1.2-.1-2.5-.3-3.5H44.5z"/>
+              <path fill="#34A853" d="M10.7 15.3L15.8 19C16.9 16.2 20 14 25 14c2.7 0 5.1 1 7 2.7l5.9-5.9C34.7 8.2 30 6 25 6c-7.8 0-14.3 5.2-17 12.5l-.3.8z"/>
+              <path fill="#FBBC05" d="M42 19.1H24v9h10.9C33.7 33.1 30 36 25 36c-5.9 0-10.7-4.1-11.9-9.5H6c1.7 9 9.8 16 19 16 9.6 0 18-8 18-18 0-1.5-.2-3-.6-4.4l.6.1z"/>
+              <path fill="#EA4335" d="M24 8v9h10.6C34.2 14.3 30.6 10 25 10c-4.5 0-8.3 2.5-10.3 6L10.7 15C14 9.8 19.2 6 25 6c8.2 0 15 5.9 16.7 13.9l-.5.2L24 8z"/>
+            </svg>
+          </span>
+        </button>
 
         <!-- Signup Link -->
-        <p class="text-black font-light dark:text-gray-400">
-          Don't have an account? <a routerLink="/User-register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Signup here</a>
+        <p class="text-gray-700 font-light">
+          Don't have an account? <a routerLink="/User-register" class="font-medium text-blue-600 hover:underline">Signup here</a>
         </p>
         
         <!-- Are You A Doctor Link -->
-        <p class="text-blue-500 font-light">
-          Are you a doctor? <a routerLink="/Doctor-login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+        <p class="text-blue-600 font-light">
+          Are you a doctor? <a routerLink="/Doctor-login" class="font-medium hover:underline">Login here</a>
         </p>
       </form>
     </div>
   </div>
 </div>
+
 
 <!-- Existing code below -->
 

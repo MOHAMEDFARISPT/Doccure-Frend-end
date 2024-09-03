@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../Environement/environment';
-import { loginResponse } from '../../shared/interfaces/Auth';
+import { loginResponse, UserLoginData } from '../../shared/interfaces/Auth';
 import { loginSuccess } from '../Store/User/user.actions';
 import { User } from '../../GolbalStore/global.model';
 import { Token } from '@angular/compiler';
+import { LoginDTO } from '../../shared/dtos/user.dto';
 
 
 @Injectable({
@@ -30,17 +31,19 @@ private apiUrl ='http://localhost:3000/users'
 
 
   // Method to send form data to the backend
-  registerUser(userData: User): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, userData);
+  registerUser(userData: User): Observable<{data:User,success:Boolean,message:string}> {
+  console.log("registerUser///",userData)
+    let result= this.http.post<{data:User,success:Boolean,message:string}>(`${this.apiUrl}/register`, userData);
+    return result
   }
 
-  verifyOtp(data: { otp: string, email: string }):Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/verify-Otp`,data)
+  verifyOtp(data: { otp: string, email: string }):Observable<{success:boolean,message:string}>{
+    return this.http.post<{success:boolean,message:string}>(`${this.apiUrl}/verify-Otp`,data)
   }
 
 
   //login request
-  loginUser(loginData:any):Observable<loginResponse>{
+  loginUser(loginData:UserLoginData):Observable<loginResponse>{
     
     return this.http.post<any>(`${this.apiUrl}/login`,loginData)
   }

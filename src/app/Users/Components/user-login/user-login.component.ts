@@ -16,6 +16,7 @@ import { SpinnerComponent } from '../../../sharedComponents/Components/spinner/s
 import { UserLoginData } from '../../../shared/interfaces/Auth';
 import { LoginDTO } from '../../../shared/dtos/user.dto';
 import { GoogleAuthService } from '../../../GoogleAuth/Google-auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-login',
@@ -45,7 +46,8 @@ export class UserLoginComponent implements OnInit {
   private userService: UserServicesService,
   private router:Router,
   private store: Store,
-  private googleAuthService:GoogleAuthService
+  private googleAuthService:GoogleAuthService,
+  private toaster:ToastrService
 ) {
   this.loading$ = this.store.select(selectLoading);
 }
@@ -71,6 +73,7 @@ if(loginDto.validate()){
 }
   
 }
+this.toaster.error('Please Enter Valid Detailes')
 this.userForm.markAllAsTouched()
 
   }

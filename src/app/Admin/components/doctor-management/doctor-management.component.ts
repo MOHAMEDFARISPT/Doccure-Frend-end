@@ -15,7 +15,7 @@ import { HumanlistingTableComponent } from '../../shared/humanlisting-table/huma
   styleUrls: ['./doctor-management.component.css'], // Corrected to styleUrls
 })
 export class DoctorManagementComponent implements OnInit {
-  DoctorTableHeaders: string[] = ['No', 'DoctorName', 'Age', 'Email', 'Specialisation', 'Experience'];
+  DoctorTableHeaders: string[] = ['No', 'DoctorName', 'Age', 'Specialisation', 'Experience'];
   DoctorTableData: any[] = [];
 
   // Observable to hold the doctors list from the store
@@ -36,9 +36,9 @@ export class DoctorManagementComponent implements OnInit {
         console.log("doctors array:", doctorsResponse);
         this.DoctorTableData = doctorsResponse.map((doctor, index) => ({
           No: index + 1,
+
           DoctorName: `${doctor.personalDetails.firstname} ${doctor.personalDetails.lastname}`,
           Age: this.calculateAge(doctor.personalDetails.dateOfBirth),
-          Email: doctor.personalDetails.email,
           Specialisation: doctor.professionalDetails.specialisedDepartment,
           Experience: doctor.professionalDetails.totalExperience,
         }));

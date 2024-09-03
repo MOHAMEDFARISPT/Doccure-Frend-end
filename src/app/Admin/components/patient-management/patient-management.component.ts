@@ -15,7 +15,7 @@ import { AdminServiceService } from '../../services/admin-service.service';
 export class PatientManagementComponent implements OnInit {
   constructor(private AdminService:AdminServiceService){}
 
-  patientTableHeaders: string[] = ['No', 'patientName', 'Age', 'PhoneNumber', 'Email', 'PaidAmount',];
+  patientTableHeaders: string[] = ['No', 'patientName', 'Age', 'PhoneNumber', 'PaidAmount',];
   patientTableData: any[] = [];
   dropdownOpen = false;
   index=0
@@ -30,7 +30,6 @@ export class PatientManagementComponent implements OnInit {
           patientName: `${patient.firstName} ${patient.lastName}`,
           Age: this.calculateAge(patient.dateOfBirth),  // Assuming dateOfBirth is a Date object
           PhoneNumber: patient.contactNumber,
-          Email: patient.email,  // Assuming updatedAt is the last visit date
           PaidAmount: 0 , // You can update this based on your data
 
         }));

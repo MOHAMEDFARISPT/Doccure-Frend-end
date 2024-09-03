@@ -86,22 +86,26 @@ onInputChange(event: any, index: number): void {
 
 
 onRegisterSubmit() {
+ 
   this.submitted = true;
 
   if (this.userForm.valid) {
 
     this.userService.registerUser( this.userForm.value ).subscribe({
       next: (res) => {
+        alert(JSON.stringify(res))
         if (res.success) {
           this.toastr.success(res.message);
-          this.useremail=res.data.email
+          this.useremail=res.data.email!
           this.step += 1;
         } else {
+         
           this.toastr.error(res.message);
           this.router.navigate(['/User-login']);
         }
       },
       error: (err) => {
+        alert()
         this.toastr.error('An error occurred. Please try again.');
         console.error(err);
       }
