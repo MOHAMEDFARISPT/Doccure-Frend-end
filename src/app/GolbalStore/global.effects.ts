@@ -13,18 +13,25 @@ export class GlobalEffects {
         private userService: UserServicesService,
         private doctorService: DoctorServiceService
       ) {}
-  // Effect to load users
-  loadUsers$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(GlobalActions.loadUsers),
-      mergeMap(() =>
-        this.userService.getUsers().pipe(
-          map(users => GlobalActions.loadUsersSuccess({ users })),
-          catchError(error => of(GlobalActions.loadUsersFailure({ error })))
+      loadUsers$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(GlobalActions.loadUsers),
+          mergeMap(() =>
+            this.userService.getUsers().pipe(
+              // Log data when received
+              map(users => {
+                console.log('Data received from backend:', users);
+                return GlobalActions.loadUsersSuccess({ users });
+              }),
+              catchError(error => {
+                console.error('Error occurred while fetching users:', error);
+                return of(GlobalActions.loadUsersFailure({ error }));
+              })
+            )
+          )
         )
-      )
-    )
-  );
+      );
+    
 
   // Effect to load doctors
   loadDoctors$ = createEffect(() =>

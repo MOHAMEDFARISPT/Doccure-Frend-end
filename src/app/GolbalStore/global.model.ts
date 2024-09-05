@@ -1,10 +1,12 @@
+import { generalDetails } from "../Admin/interfaces/interface";
+
 // user.model.ts
 export interface User {
     _id?: string;
     firstName?: string;
     lastName?: string;
     gender?: string;
-    dateOfBirth?: Date;
+    dateOfBirth?: Date | undefined |null|''
     contactNumber?: string;
     email?: string;
     password?: string;
@@ -17,13 +19,13 @@ export interface User {
   }
   
   // doctor.model.ts
-  export interface PersonalDetails {
-    firstname: string;
-    lastname: string;
+  export interface personalDetails {
+    firstName: string;
+    lastName: string;
     email: string;
     gender: string;
     contactNumber: string;
-    dateOfBirth: Date;
+    dateofBirth: Date;
     password: string;
     role: string;
     isApproved: boolean;
@@ -39,7 +41,7 @@ export interface User {
     adharNumber: string;
   }
   
-  export interface ProfessionalDetails {
+  export interface professionalDetails {
     medicalLicenceNumber: string;
     specialisedDepartment: string;
     totalExperience: number;
@@ -49,9 +51,9 @@ export interface User {
   
   export interface Doctor {
     _id: string;
-    personalDetails: PersonalDetails;
-    generalDetails: GeneralDetails;
-    professionalDetails: ProfessionalDetails;
+    personalDetails: personalDetails;
+    generalDetails: generalDetails;
+    professionalDetails: professionalDetails;
     createdAt: Date;
     updatedAt: Date;
   }

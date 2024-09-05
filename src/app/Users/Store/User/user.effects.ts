@@ -4,9 +4,9 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserServicesService } from '../../services/user-services.service';
 import * as AuthActions from './user.actions';
-import { loginResponse } from '../../../shared/interfaces/Auth';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { loginResponse } from '../../Interfaces/userInterface';
 
 @Injectable()
 export class UserEffects {
@@ -31,16 +31,19 @@ export class UserEffects {
       mergeMap(action =>
         this.userService.loginUser({ email: action.email, password: action.password }).pipe(
           map((response: loginResponse) => {
+            alert(response.data.accessToken)
          if(response.success){
+      
           this.toastr.success(response.message)
-          return AuthActions.loginSuccess({user: response.data,Token: response.Token});
+         
+          return AuthActions.loginSuccess({user: response.data,Token: response.data.accessToken});
          }else{
           this.toastr.error(response.message)
           return AuthActions.loginFailure({error:response.message})          
          }      
           }),
           catchError(error => {
-            this.toastr.error('An error occurred during registration.');
+            this.toastr.error('please login with Google Account');
             return of(AuthActions.loginFailure({ error: error.message }));
           })
         )

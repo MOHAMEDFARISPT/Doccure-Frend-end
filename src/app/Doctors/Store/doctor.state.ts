@@ -1,6 +1,7 @@
+import { Doctor } from "../../GolbalStore/global.model";
 
 export interface AuthState {
-    Doctor: any; 
+    Doctor: any  
     error: any; 
     loading: boolean;
   }

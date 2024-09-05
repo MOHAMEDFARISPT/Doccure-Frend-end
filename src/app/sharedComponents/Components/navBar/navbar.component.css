@@ -1,0 +1,38 @@
+
+    .btn-transition {
+        @apply relative inline-block px-4 py-2 text-white font-medium rounded-md overflow-hidden;
+        position: relative;
+        border: 2px solid transparent; /* Initially transparent */
+        transition: color 0.3s, border-color 0.3s; /* Transition for text color and border color */
+    }
+    .btn-transition{
+        border-radius: 30px;
+
+    }
+    
+    .btn-transition::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300%; /* Ensure it covers the button */
+        height: 300%; /* Ensure it covers the button */
+        background-color: #3b82f6; /* Tailwind's blue-500 color */
+        transition: transform 0.7s ease; /* Transition for the effect */
+        transform: scale(0 ); /* Initially scaled down */
+        z-index: 0; /* Behind the text */
+    }
+
+    .btn-transition:hover::before {
+        transform: scale(1); /* Scale up on hover */
+    }
+    
+    .btn-transition:hover {
+        color: white; /* Text color on hover */
+    }
+
+    .btn-transition span {
+        position: relative;
+        z-index: 1; /* Make sure text is above the pseudo-element */
+    }
+

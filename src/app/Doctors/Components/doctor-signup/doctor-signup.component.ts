@@ -7,7 +7,7 @@ import { NavbarComponent } from '../../../sharedComponents/Components/navBar/nav
 import { FooterComponent } from '../../../sharedComponents/Components/footer/footer.component';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import {DoctorRegistrationDto, GeneralDetailsDto, PersonalDetailsDto, ProfessionalDetailsDto } from '../../Doctors-Dto/Dto';
+import { doctorRegistration, generalDetails, personalDetails, professionalDetails } from '../../Doctors-Interfaces/DoctorInterface';
 import { PasswordMatchValidator } from '../../../Users/utility/formvalidation';
 
 
@@ -21,7 +21,7 @@ import { PasswordMatchValidator } from '../../../Users/utility/formvalidation';
 })
 export class DoctorSignupComponent implements OnInit   {
 
-
+  backtologin=false
   step:number=1;
   personalDetailsForm!: FormGroup;
   generalDetailsForm!: FormGroup;
@@ -30,10 +30,10 @@ export class DoctorSignupComponent implements OnInit   {
 
 
 
-  doctorRegistrationDto: DoctorRegistrationDto = {
-    personalDetails: {} as PersonalDetailsDto,
-    generalDetails: {} as GeneralDetailsDto,
-    professionalDetails: {} as ProfessionalDetailsDto,
+  doctorRegistrationDto: doctorRegistration = {
+    personalDetails: {} as personalDetails,
+    generalDetails: {} as generalDetails,
+    professionalDetails: {} as professionalDetails,
   
   };
   constructor(
@@ -46,10 +46,7 @@ export class DoctorSignupComponent implements OnInit   {
 
 
   
-  goToLogin() {
-    this.router.navigate(['/Doctor-login'])
-    }
- 
+
 
 
     
@@ -59,12 +56,12 @@ export class DoctorSignupComponent implements OnInit   {
 
   ngOnInit(): void {
     this.personalDetailsForm = this.fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       gender: ['', Validators.required],
       contactNumber: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
+      dateofBirth: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
     }, { validators: PasswordMatchValidator });
@@ -137,14 +134,20 @@ export class DoctorSignupComponent implements OnInit   {
   }
   submitRegistration() {
     this.doctorService.RegisterDoctor(this.doctorRegistrationDto).subscribe(
+
       response => {
         if(response.success){
           this.step=4;
         this.toastr.success(response.message)
 
         }else{
-          this.toastr.error(response.message)
-          this.router.navigate(['/Doctor-login'])
+          if(response.message==='Doctor already exists Please login'){
+            this.backtologin=true
+            this.toastr.error(response.message)
+
+          }
+         
+          
         }
        
       },

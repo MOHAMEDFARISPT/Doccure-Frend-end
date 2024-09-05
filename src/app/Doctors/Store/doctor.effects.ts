@@ -8,6 +8,7 @@ import * as DoctorActions from './doctor.action'
 import { ToastrService } from 'ngx-toastr';
 import { response } from 'express';
 import { Router } from '@angular/router';
+import { loginDoctorResponse } from '../Doctors-Interfaces/DoctorInterface';
 
 @Injectable()
 export class DoctorEffects {
@@ -25,8 +26,9 @@ export class DoctorEffects {
         this.DoctorService.loginDoctor({ email: action.email, password: action.password }).pipe(
           map((response: any) => {
             if (response.success) {
+              
               this.toastr.success(response.message);
-              return DoctorActions.loginSuccess({ Doctor: response.Data, Token: response.Token });
+              return DoctorActions.loginSuccess({ Doctor: response.data, token: response.token });
             } else {
               this.toastr.error(response.message);
               return DoctorActions.loginFailure({ error: response.message });
@@ -47,9 +49,10 @@ export class DoctorEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DoctorActions.loginSuccess),
-      tap((response: { Token: string }) => {
-        localStorage.setItem('token', response.Token);
-        this.router.navigate(['/Home']).catch(err => {
+      tap((response: { token: string }) => {
+   
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/Doctor-Dashboard']).catch(err => {
           console.error('Navigation error:', err);
         });
       })

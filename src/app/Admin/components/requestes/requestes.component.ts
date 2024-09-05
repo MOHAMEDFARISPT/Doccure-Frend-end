@@ -3,9 +3,10 @@ import { AdminSlidebarComponent } from "../../shared/admin-slidebar/admin-slideb
 import { AdminServiceService } from '../../services/admin-service.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { DoctorDetails } from '../../interfaces/interface';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { doctorDetails } from '../../interfaces/interface';
+
 
 
 
@@ -17,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './requestes.component.css'
 })
 export class RequestesComponent implements OnInit {
-  doctorDetails: DoctorDetails[] = [];
+  doctorDetails: doctorDetails[] = [];
   loadingMap: { [doctorId: string]: boolean } = {};
   constructor(
     private AdminService:AdminServiceService,
@@ -28,12 +29,13 @@ export class RequestesComponent implements OnInit {
 
   ngOnInit(): void {
     this.AdminService.getDoctorDetails().subscribe({
-      next: (res:any) => {
-        if (res && Array.isArray(res.responseData)) {
-          this.doctorDetails = res.responseData; // Assign the responseData array to doctorDetails
-        } else {
-          console.error('Expected an array, but got:', res);
-        }
+      next: (response:any) => {
+        console.log("res//",response)
+    
+          this.doctorDetails = response
+          console.log("this.doctorDetails",this.doctorDetails)
+
+        
       },
       error: (err) => {
         console.error('Error fetching doctor details:', err);

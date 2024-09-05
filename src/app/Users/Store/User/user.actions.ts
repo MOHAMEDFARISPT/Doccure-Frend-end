@@ -1,7 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CreateUserDto } from '../../../shared/dtos/create-user.dto';
 import { UserModel, user } from './userModel';
-import { UserData } from '../../../shared/interfaces/Auth';
 
 
 

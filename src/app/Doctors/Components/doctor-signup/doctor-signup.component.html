@@ -16,17 +16,17 @@
               <!-- First Name -->
               <div>
                 <label class="text-gray-800 text-sm mb-2 block">First Name</label>
-                <input formControlName="firstname" name="firstname" type="text" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all" placeholder="Enter name" />
-                <div *ngIf="personalDetailsForm.get('firstname')?.invalid && personalDetailsForm.get('firstname')?.touched" class="text-red-600">First name is required</div>
-                <div *ngIf="personalDetailsForm.get('firstname')?.errors?.['maxlength']" class="text-red-600">Maximum 10 characters allowed for first name</div>
+                <input formControlName="firstName" name="firstName" type="text" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all" placeholder="Enter name" />
+                <div *ngIf="personalDetailsForm.get('firstName')?.invalid && personalDetailsForm.get('firstName')?.touched" class="text-red-600">First name is required</div>
+                <div *ngIf="personalDetailsForm.get('firstName')?.errors?.['maxlength']" class="text-red-600">Maximum 10 characters allowed for first name</div>
               </div>
           
               <!-- Last Name -->
               <div>
                 <label class="text-gray-800 text-sm mb-2 block">Last Name</label>
-                <input formControlName="lastname" name="lastname" type="text" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all" placeholder="Enter last name" />
-                <div *ngIf="personalDetailsForm.get('lastname')?.invalid && personalDetailsForm.get('lastname')?.touched" class="text-red-600">Last name is required</div>
-                <div *ngIf="personalDetailsForm.get('lastname')?.errors?.['maxlength']" class="text-red-600">Maximum 10 characters allowed for last name</div>
+                <input formControlName="lastName" name="lastName" type="text" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all" placeholder="Enter last name" />
+                <div *ngIf="personalDetailsForm.get('lastName')?.invalid && personalDetailsForm.get('lastName')?.touched" class="text-red-600">Last name is required</div>
+                <div *ngIf="personalDetailsForm.get('lastName')?.errors?.['maxlength']" class="text-red-600">Maximum 10 characters allowed for last name</div>
               </div>
           
               <!-- Email -->
@@ -51,8 +51,8 @@
               <!-- Date of Birth -->
               <div>
                 <label class="text-gray-800 text-sm mb-2 block">Date Of Birth</label>
-                <input formControlName="dateOfBirth" name="dob" type="date" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all"/>
-                <div *ngIf="personalDetailsForm.get('dateOfBirth')?.invalid && personalDetailsForm.get('dateOfBirth')?.touched" class="text-red-600">Please select your date of birth</div>
+                <input formControlName="dateofBirth" name="dob" type="date" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all"/>
+                <div *ngIf="personalDetailsForm.get('dateofBirth')?.invalid && personalDetailsForm.get('dateofBirth')?.touched" class="text-red-600">Please select your date of birth</div>
               </div>
               
           
@@ -230,6 +230,12 @@
           </button>
         </div>
       </form>
+
+      <div routerLink="/Doctor-login" class="mt-8 flex justify-end" *ngIf="backtologin">
+        <button type="submit" class="py-3 px-6 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none">
+          Back To Login
+        </button>
+      </div>
       
 </div>
 
@@ -257,9 +263,7 @@
 
     <!-- Button to go to login -->
     <div class="mt-28 text-center ">
-      <button 
-        (click)="goToLogin()"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out"
+      <button  routerLink="/Doctor-login"  class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out"
       >
         Go to Login
       </button>

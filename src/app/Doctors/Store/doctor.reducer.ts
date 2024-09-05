@@ -9,18 +9,23 @@ export const DoctorReducer = createReducer(
       loading: true,
       error: null,
     })),
-    on(DoctorActions.loginSuccess, (state, { Doctor,Token }) => ({
-      ...state,
-      Doctor,
-      Token,
-      loading: false,
-      error: null,
-    })),
+    on(DoctorActions.loginSuccess, (state, { Doctor, token }) => {
+      localStorage.setItem('Doctor', JSON.stringify(Doctor));
+      localStorage.setItem('token', token);
+    
+      return {
+        ...state,
+        Doctor,
+        token,
+        loading: false,
+        error: null,
+      };
+    }),
     on(DoctorActions.loginFailure, (state, { error }) => ({
       ...state,
       loading: false,
       Doctor:null,
-      Token:null,
+      token:null,
       error,
     }))
   );

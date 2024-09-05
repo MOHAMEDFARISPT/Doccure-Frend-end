@@ -28,7 +28,7 @@ export class GoogleAuthService {
 
         this.userService.googleAuthentication(googleResponse.user).subscribe({
           next: (response) => {
-            alert(JSON.stringify(response))
+            (JSON.stringify(response))
             localStorage.setItem('token', response?.data.accessToken)
             this.toaster.success(response.message)
             this.ngZone.run(() => this.router.navigate(['/my-appointments']));

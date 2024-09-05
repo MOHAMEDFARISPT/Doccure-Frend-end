@@ -1,22 +1,23 @@
-<div class="p-6 bg-white rounded-lg shadow-lg">
+<div class="p-6 bg-white flex-col   rounded-lg shadow-lg">
   <div class="overflow-x-auto">
     <table
       *ngIf="tableData && tableData.length > 0; else noDataTemplate"
       class="min-w-full bg-gray-50 rounded-md border border-gray-200"
     >
-      <thead class="bg-gray-200">
-        <tr>
-          <th
-            *ngFor="let header of tableHeaders"
-            class="px-12 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider border-b border-gray-300"
-          >
-            {{ header }}
-          </th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider border-b border-gray-300">
-            Action
-          </th>
-        </tr>
-      </thead>
+    <thead class="bg-gray-200">
+      <tr>
+        <th
+          *ngFor="let header of tableHeaders"
+          class="px-4 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-600 uppercase tracking-wider border-b border-gray-300"
+        >
+          {{ header }}
+        </th>
+        <th class="px-4 py-2 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-600 uppercase tracking-wider border-b border-gray-300">
+          Action
+        </th>
+      </tr>
+    </thead>
+    
       <tbody class="bg-white divide-y divide-gray-200">
         <tr
           *ngFor="let row of tableData"

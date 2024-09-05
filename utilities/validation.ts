@@ -35,6 +35,13 @@ export function PasswordMatchValidator(password: string, confirmPassword: string
   
 
 
+  export function calculateAge(dateOfBirth:any): number {
+    const diff = Date.now() - new Date(dateOfBirth).getTime();
+    const ageDt = new Date(diff); 
+    return Math.abs(ageDt.getUTCFullYear() - 1970);
+  }
+
+
 
 
 

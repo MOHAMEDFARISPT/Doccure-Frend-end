@@ -12,6 +12,7 @@ export type UserModel = {
     isAdmin?: boolean;
     isBlocked?: boolean;
     phoneNumber?: number;
+    accessToken?:string
   };
 
 

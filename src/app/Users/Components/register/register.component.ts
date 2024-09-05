@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 
 
-import { noWhitespaceValidator,PasswordMatchValidator } from '../../utility/formvalidation';
+import { DateOfBirthValidatorforUser, noWhitespaceValidator,PasswordMatchValidator } from '../../utility/formvalidation';
 import { UserServicesService } from '../../services/user-services.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,8 +46,12 @@ ngOnInit(): void {
     lastName: ['', Validators.compose([Validators.required, Validators.minLength(3),noWhitespaceValidator()])],
     email: ['', [Validators.required, Validators.email]],
     gender: ['', Validators.required],
-    dateOfBirth: ['', Validators.required],
-    contactNumber:['',Validators.required],
+    dateOfBirth: ['', [Validators.required, DateOfBirthValidatorforUser()]],
+contactNumber: ['', Validators.compose([
+  Validators.required, 
+  Validators.minLength(10), 
+  Validators.maxLength(10)
+])],
     password: ['', [Validators.required, Validators.minLength(8),noWhitespaceValidator()]],
     confirmPassword: ['', Validators.required],
   }, {
@@ -93,19 +97,19 @@ onRegisterSubmit() {
 
     this.userService.registerUser( this.userForm.value ).subscribe({
       next: (res) => {
-        alert(JSON.stringify(res))
         if (res.success) {
           this.toastr.success(res.message);
           this.useremail=res.data.email!
           this.step += 1;
         } else {
          
-          this.toastr.error(res.message);
-          this.router.navigate(['/User-login']);
+          this.toastr.error(res.message,"please ensure ");
+     
+          
         }
       },
       error: (err) => {
-        alert()
+
         this.toastr.error('An error occurred. Please try again.');
         console.error(err);
       }

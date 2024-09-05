@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../Doctor-sharedComponent/sidebar/sidebar.component";
 
 @Component({
@@ -8,6 +8,22 @@ import { SidebarComponent } from "../../Doctor-sharedComponent/sidebar/sidebar.c
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  loginedUser!:string;
+  ngOnInit(): void {
+
+    const loginedDoctor=localStorage.getItem('Doctor')
+
+    if(loginedDoctor){
+      let parsedData=JSON.parse(loginedDoctor)
+      if(parsedData){
+        let loginedUsername=parsedData.personalDetails.firstName+' '+parsedData.personalDetails.lastName
+    this.loginedUser=loginedUsername
+      }
+    }
+
+    
+  }
+ 
 
 }

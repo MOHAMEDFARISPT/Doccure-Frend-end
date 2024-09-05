@@ -9,12 +9,10 @@ interface DecodedToken {
   userId: string;
   email: string;
   role: string;
-}
-interface DecodedToken   {
   exp: number;
   iat: number;
-  // Add other properties as needed
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,19 +27,29 @@ export class AuthGuard  {
       if (token) {
         try {
           const decodedToken: DecodedToken = jwt_decode.jwtDecode(token) as DecodedToken;
-          console.log("decodedToken//", decodedToken);
   
-          const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-          console.log("Current time", currentTime);
-  
+          const currentTime = Math.floor(Date.now() / 1000);
+         
+             
+          console.log("decodedToken////",decodedToken.userId)
+          
+
           if (decodedToken.exp < currentTime) {
             // Token has expired
             this.notificationToastr.warning('please login again');
             this.router.navigate(['/User-login']);
             return false;
           }
+
+          if(decodedToken.role!=='user'){
+            this.notificationToastr.warning('You do not have permission to access this page');
+            this.router.navigate(['/User-login'])
+            
+
+          }
   
-          // Token is valid
+
+        
           return true;
         } catch (error) {
           // Handle decoding error

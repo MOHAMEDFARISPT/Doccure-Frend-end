@@ -2,50 +2,49 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../Environement/environment';
-import { loginResponse, UserLoginData } from '../../shared/interfaces/Auth';
+import { loginResponse, UserData } from '../Interfaces/userInterface'
 import { loginSuccess } from '../Store/User/user.actions';
 import { User } from '../../GolbalStore/global.model';
-import { Token } from '@angular/compiler';
-import { LoginDTO } from '../../shared/dtos/user.dto';
+import {UserLoginData} from '../Interfaces/userInterface'
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServicesService {
-private apiUrl ='http://localhost:3000/users'
+private apiUrl =environment.apiUrl
 
   constructor(private http: HttpClient) {}
 
 
   googleAuthentication(user: any):Observable<any>{
-    const response=this.http.post<{User:User,Token:string}>(`${this.apiUrl}/googlelogin`,user)
-    console.log("Response//",response)
-    return response
+    return this.http.post<{User:User,Token:string}>(`${this.apiUrl}/users/googlelogin`,user)
+     
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/loadUserDatas`);
+  getUsers(): Observable<UserData[]> {
+
+    return this.http.get<UserData[]>(`${this.apiUrl}/Admin/loadUserDatas`);
   }
 
 
 
   // Method to send form data to the backend
-  registerUser(userData: User): Observable<{data:User,success:Boolean,message:string}> {
-  console.log("registerUser///",userData)
-    let result= this.http.post<{data:User,success:Boolean,message:string}>(`${this.apiUrl}/register`, userData);
-    return result
+  registerUser(userData: UserData): Observable<{data:User,success:Boolean,message:string}> {
+    return this.http.post<{data:User,success:Boolean,message:string}>(`${this.apiUrl}/users/register`, userData);
+  
   }
 
   verifyOtp(data: { otp: string, email: string }):Observable<{success:boolean,message:string}>{
-    return this.http.post<{success:boolean,message:string}>(`${this.apiUrl}/verify-Otp`,data)
+    return this.http.post<{success:boolean,message:string}>(`${this.apiUrl}/users/verify-Otp`,data)
   }
 
 
   //login request
   loginUser(loginData:UserLoginData):Observable<loginResponse>{
     
-    return this.http.post<any>(`${this.apiUrl}/login`,loginData)
+    return this.http.post<loginResponse>(`${this.apiUrl}/users/login`,loginData)
   }
  
 }

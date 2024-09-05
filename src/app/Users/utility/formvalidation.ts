@@ -33,5 +33,46 @@ export function PasswordMatchValidator(password: string, confirmPassword: string
     };
   }
 
+  export function DateOfBirthValidatorforUser(): ValidatorFn {
+
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const dateValue = control.value;
+      if (!dateValue) {
+      
+        return null; 
+      }
+    
+  
+      const selectedDate = new Date(dateValue);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); 
+  
+      if (selectedDate > today) {
+        return { futureDate: true }; 
+      }
+  
+      return null;
+    };
+  }
+
+  // Custom validator for password strength
+export function passwordStrengthValidator(control: { value: any; }) {
+  const password = control.value;
+  if (!password) return null;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  const isLengthValid = password.length >= 8;
+
+  return {
+    hasUpperCase: !hasUpperCase,
+    hasLowerCase: !hasLowerCase,
+    hasNumber: !hasNumber,
+    hasSpecialChar: !hasSpecialChar,
+    isLengthValid: !isLengthValid,
+  };
+}
+
 
   

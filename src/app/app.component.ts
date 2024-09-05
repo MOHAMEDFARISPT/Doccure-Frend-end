@@ -16,6 +16,7 @@ import { MyAppointmentsComponent } from './Users/Components/my-appointments/my-a
 import { AdminRegistercomponent } from './Admin/components/admin-registercomponent/admin-registercomponent.component';
 import { AdminloginComponent } from './Admin/components/adminlogin-component/adminlogin-component.component';
 import { AdminDashboardComponent } from './Admin/components/admin-dashboard/admin-dashboard.component';
+import { OnDisconnect } from 'firebase/database';
 
 
 
@@ -36,8 +37,10 @@ import { AdminDashboardComponent } from './Admin/components/admin-dashboard/admi
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent  {
+export class AppComponent   {
 title = 'Doccure-FrendEnd';
+
+
 
 
 

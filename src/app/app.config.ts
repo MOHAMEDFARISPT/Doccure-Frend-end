@@ -1,7 +1,7 @@
 import { provideRouter } from '@angular/router';
 import { userRoute } from './Users/user.routes.routing';
-import { DoctorRoutes } from './Doctors/Components/doctor.routes.routing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DoctorRoutes } from './Doctors/doctor.routes.routing'
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { AdminRouted } from './Admin/admin.routes';
@@ -22,6 +22,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getDatabase } from '@angular/fire/database';
 import { provideDatabase } from '@angular/fire/database';
+import { JwtInterceptor } from './Users/Intercepters/jwt.intercepter';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+
 
 
 
@@ -40,8 +44,16 @@ export const appConfig = {
       HttpClientModule,
       BrowserAnimationsModule,
       EffectsModule.forRoot([UserEffects,DoctorEffects,GlobalEffects]),
-      StoreModule.forRoot({ user:userreducer,Doctor:DoctorReducer,global: globalReducer}) 
-    )
+      StoreModule.forRoot({ user:userreducer,Doctor:DoctorReducer,global: globalReducer}) ,
+      
+       
+      
+    ),{
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }, provideAnimationsAsync()
+   
   ]
   
 };

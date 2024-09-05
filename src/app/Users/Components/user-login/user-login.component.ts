@@ -13,8 +13,7 @@ import { userreducer } from '../../Store/User/user.reducer';
 import { Observable } from 'rxjs';
 import { selectLoading } from '../../Store/User/user.selector';
 import { SpinnerComponent } from '../../../sharedComponents/Components/spinner/spinner.component';
-import { UserLoginData } from '../../../shared/interfaces/Auth';
-import { LoginDTO } from '../../../shared/dtos/user.dto';
+import { UserLoginData } from '../../Interfaces/userInterface'
 import { GoogleAuthService } from '../../../GoogleAuth/Google-auth.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -63,18 +62,13 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit(){
 
-if(!this.userForm.invalid){
-  const {email,password}=this.userForm.value
-  const loginDto=new LoginDTO(email,password)
-
-if(loginDto.validate()){
-  this.store.dispatch(loginUser({email: loginDto.email,password:loginDto.password}))
-
-}
-  
-}
-this.toaster.error('Please Enter Valid Detailes')
-this.userForm.markAllAsTouched()
+    if (!this.userForm.invalid) {
+      const { email, password } = this.userForm.value;
+      const loginDto: UserLoginData = { email, password };
+    
+      this.store.dispatch(loginUser({ email: loginDto.email, password: loginDto.password }));
+    }
+     
 
   }
 

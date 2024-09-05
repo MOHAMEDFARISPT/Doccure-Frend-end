@@ -52,15 +52,17 @@
             <!-- First Card -->
             <div class="bg-gray-100 p-6 min-h-screen">
               <!-- Check if there are doctor requests -->
+            
               <div *ngIf="doctorDetails && doctorDetails.length > 0; else noRequests">
                 <div class="w-full mb-4" *ngFor="let doctor of doctorDetails">
-                  <div class="border border-black h-full flex flex-col p-6 rounded-lg shadow-lg">
+                
+                  <div class="borde  border-black  h-full flex flex-col p-6 rounded-lg shadow-lg" >
                     <!-- Upper Section: Two Columns -->
                     <div class="flex flex-col md:flex-row md:justify-between">
                       <!-- Left Section -->
                       <div class="md:w-1/3 flex flex-col items-start mb-4 md:mb-0">
                         <img src="/assets/Images/Ảnh profile.jpeg" alt="Doctor Profile" class="w-24 h-24 rounded-full object-cover mb-4">
-                        <p class="mb-2"><strong>Name:</strong> Dr. {{ doctor.personalDetails.firstname }} {{ doctor.personalDetails.lastname }}</p>
+                        <p class="mb-2"><strong>Name:</strong> Dr. {{ doctor.personalDetails.firstName }} {{ doctor.personalDetails.lastName }}</p>
                         <p class="mb-2"><strong>Email:</strong> {{ doctor.personalDetails.email }}</p>
                         <p class="mb-2"><strong>Department:</strong> {{ doctor.professionalDetails.specialisedDepartment }}</p>
                       </div>
@@ -97,7 +99,6 @@
                   </div>
                 </div>
               </div>
-              
               
               
               <!-- Template for No Requests -->
