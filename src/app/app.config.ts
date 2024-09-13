@@ -2,7 +2,7 @@ import { provideRouter } from '@angular/router';
 import { userRoute } from './Users/user.routes.routing';
 import { DoctorRoutes } from './Doctors/doctor.routes.routing'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, NgModule } from '@angular/core';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { AdminRouted } from './Admin/admin.routes';
 import { userreducer } from  './Users/Store/User/user.reducer'
@@ -24,6 +24,7 @@ import { getDatabase } from '@angular/fire/database';
 import { provideDatabase } from '@angular/fire/database';
 import { JwtInterceptor } from './Users/Intercepters/jwt.intercepter';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 
 
 
@@ -57,5 +58,7 @@ export const appConfig = {
   ]
   
 };
+
+
 
 

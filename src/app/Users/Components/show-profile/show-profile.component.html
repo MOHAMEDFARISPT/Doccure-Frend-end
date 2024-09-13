@@ -1,0 +1,136 @@
+<app-navbar></app-navbar>
+
+<div class="flex" *ngIf="doctor$ | async as doctor;">
+  <!-- Sidebar Component -->
+  <app-user-slidebar></app-user-slidebar>
+
+  <!-- Main Content -->
+  <div class="flex-1 p-6 md:ml-14">
+    <h1 class="text-2xl font-semibold text-black">
+      <i class="fa fa-arrow-left mr-4" [routerLink]="['/find-Doctors']"></i>
+      Profile
+    </h1>
+    <hr class="text-gray-200 mt-2 ml-0 mb-5">
+   
+   
+   
+        
+    <div  class="border border-gray-300 rounded-lg w-full h-auto flex flex-col md:flex-row">
+        <!-- Doctor Image for larger screens -->
+        <div class="hidden md:block bg-green p-4">
+          <img src="/assets/Images/Doctor1.jpeg" alt="Doctor Image" class="w-[220px] h-[220px] rounded-lg">
+        </div>
+      
+        <!-- Doctor Image for smaller screens -->
+        <div class="block md:hidden ml-10  bg-green p-4">
+          <img src="/assets/Images/Doctor1.jpeg" alt="Doctor Image" class="w-[220px] h-[220px] rounded-lg">
+        </div>
+      
+        <!-- Doctor Details -->
+        <div class="flex flex-col md:flex-row ml-10 justify-between p-4 flex-1">
+          <!-- Name, Experience, and Department -->
+          <div class="flex flex-col mb-4 md:mb-0">
+            <div class="flex items-center mb-2">
+              <!-- Doctor Icon -->
+              <i class="fas fa-user-md text-blue-500 mr-2 text-lg"></i>
+              <h1 class="text-xl font-semibold">{{doctor?.personalDetails?.firstName}} {{doctor?.personalDetails?.lastName}}</h1>
+            </div>
+            <div class="flex items-center mb-2">
+              <!-- Experience Icon -->
+              <i class="fas fa-briefcase text-blue-500 mr-2 text-lg"></i>
+              <p class="text-gray-600">Experience: {{doctor?.professionalDetails?.totalExperience}} Years</p>
+            </div>
+            <div class="flex items-center">
+              <!-- Department Icon -->
+              <i class="fas fa-stethoscope text-blue-500 mr-2 text-lg"></i>
+              <p class="text-gray-600">Department: {{doctor?.professionalDetails?.specialisedDepartment}}</p>
+            </div>
+          </div>
+      
+          <!-- Medical License Number and Consultation Fee -->
+          <div class="flex flex-col mb-4 md:mb-0">
+            <p class="text-gray-600">Medical License: {{doctor?.professionalDetails?.medicalLicenceNumber}}</p>
+            <p class="text-gray-600">Consultation Fee: <i class="fas fa-inr mr-1"></i>{{doctor?.professionalDetails?.consultationFee}}</p>
+          </div>
+      
+          <!-- Booking Appointment Button -->
+          <div class="mt-4 ml-4 md:mt-0">
+
+            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+              Book Appointment
+            </button>
+          </div>
+        </div>
+      </div>
+      
+     
+      
+          
+      
+          <!-- Buttons Below Main Content -->
+           <div class="flex flex-row">
+              <div class=" mt-4  ">
+                  <button class="bg-white border mb-3   border-gray-200 text-black font-medium hover:text-white py-2 mr-3 px-4 rounded-lg hover:bg-customBlue ">
+                    Doctor Bio
+                  </button>
+                  <button class="bg-white border mb-3  border-gray-200 text-black font-medium hover:text-white py-2 mr-3 px-4 rounded-lg hover:bg-customBlue ">
+                    Education
+                  </button>
+                  <button class="bg-white border mb-3  border-gray-200 text-black font-medium hover:text-white py-2 mr-3 px-4 rounded-lg hover:bg-customBlue ">
+                    Speciality
+                  </button>
+               
+                </div>
+           </div>
+           <hr class="text-gray-200 mt-2 ml-0 mb-5">
+      
+           <h3 class="text-xl text-black font-semibold mb-2">Doctor Bio</h3>
+           <p class="text-gray-500 mb-2">“{{doctor?.professionalDetails?.bio}}”</p>
+           <h3 class="text-xl text-black font-semibold mb-2">Experience</h3>
+           <p class="text-gray-500 mb-2">“Highly motivated and experienced doctor with a passion for providing excellent care to patients. Experienced in a wide variety of medical settings, with particular expertise in diagnostics, primary care and emergency medicine. Skilled in using the latest technology to streamline patient care. Committed to delivering compassionate, personalized care to each and every patient.”</p>
+           <h3 class="text-xl text-black font-semibold mb-2">Speciality</h3>
+           <div class="flex flex-row">
+              <div class=" mt-4  ">
+                  <button class="bg-white border mb-3 hover:bg-customBlue  border-gray-200 text-black font-medium  py-2 mr-3 px-4 rounded-lg  ">
+                      Otology/Neurotology
+                  </button>
+                  <button class="bg-white border mb-3 hover:bg-customBlue  border-gray-200 text-black font-medium  py-2 mr-3 px-4 rounded-lg  ">
+                      Rhinology
+                  </button>
+                  <button class="bg-white border mb-3 hover:bg-customBlue  border-gray-200 text-black font-medium  py-2 mr-3 px-4 rounded-lg  ">
+                      Laryngology
+                  </button>
+                  <button class="bg-white border mb-3  hover:bg-customBlue  border-gray-200 text-black font-medium  py-2 mr-3 px-4 rounded-lg  ">
+                      Allergy and Immunology
+                  </button>
+                 
+                </div>
+           </div>
+
+   
+
+    <ng-template #loading>
+        <p>Loading...</p>
+      </ng-template>
+   
+   
+    
+
+  </div>
+
+  <div>
+    <!-- Additional content if needed -->
+  </div>
+ 
+
+</div>
+
+
+
+
+
+
+
+  
+  
+  

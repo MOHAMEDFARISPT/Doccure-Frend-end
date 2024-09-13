@@ -44,6 +44,7 @@ export interface User {
   export interface professionalDetails {
     medicalLicenceNumber: string;
     specialisedDepartment: string;
+    bio:string;
     totalExperience: number;
     patientsPerDay: number;
     consultationFee: number;

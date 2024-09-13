@@ -1,0 +1,212 @@
+<div class="flex">
+ 
+    <app-sidebar></app-sidebar>
+   
+    <div class="flex-1 p-6 md:ml-14 mt-4">
+        <h1 class="text-2xl font-semibold text-black mt-5">Profile Settings</h1>
+        <hr class="text-gray-200 mt-4 mb-2 ml-0">
+         
+        <div class="bg-white shadow-xl  rounded-lg mt-5 h-auto">
+            <div class=" grid grid-cols-1 md:grid-cols-4  gap-1 p-2  w-auto">
+
+  <button class="w-auto hover:border hover:border-gray-200 px-2 py-2 rounded-md"[ngClass]="{'bg-customBlue text-white': selectedButton === 'Personal Details'}"(click)="onSelect('Personal Details')">Personal Details</button>
+  <button class="w-auto hover:border hover:border-gray-200 px-2 py-2 rounded-md"[ngClass]="{'bg-customBlue text-white': selectedButton === 'General Details'}"(click)="onSelect('General Details')">General Details</button>
+  <button class="w-auto hover:border hover:border-gray-200 px-2 py-2 rounded-md"[ngClass]="{'bg-customBlue text-white': selectedButton === 'Professional Details'}"(click)="onSelect('Professional Details')">Professional Details</button>
+  <button class="w-auto hover:border hover:border-gray-200 px-2 py-2 rounded-md"[ngClass]="{'bg-customBlue text-white': selectedButton === 'Change Password'}"(click)="onSelect('Change Password')">Change Password</button>
+           
+         
+             </div>
+          
+            </div>
+            <div *ngIf="selectedButton==='Personal Details'" class="w-auto flex flex-col bg-white shadow-xl mt-4 p-5">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-black text-xl font-bold">Personal Detailes </h2>
+                  <div class="flex items-center gap-2 text-2xl">
+                   
+                    <i class="fa fa-edit text-black"></i> <!-- Edit icon -->
+                  </div>
+                </div>
+                <div class="bg-white mt-3 p-5  ">
+                 <img src="assets/Images/Doctor1.jpeg" alt="" class="w-[150px] h-[150px] rounded-md md:ml-2 ml-8 md:mt-0 sm:mt-2">
+                 
+                 <div  class="mt-10 grid grid-cols-1   gap-2 md:grid-cols-3">
+                    
+                    <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-3">First Name:</label>
+                        <span>{{DoctorData.personalDetails.firstName}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-3">Last Name:</label>
+                        <span>{{DoctorData.personalDetails.lastName}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-3">Email:</label>
+                        <span>{{DoctorData.personalDetails.email}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-3">Gender:</label>
+                        <span>{{DoctorData.personalDetails.gender}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-3">Date of Birth:</label>
+                        <span>{{DoctorData.personalDetails.dateofBirth | dateTransform:'d-MMM-y' }}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-3">Contact Number:</label>
+                        <span>{{DoctorData.personalDetails.contactNumber}}</span>
+                      </div>
+                      
+                
+                 
+                
+                 </div>
+
+
+                </div>
+
+               
+              </div>
+
+
+              <div *ngIf="selectedButton==='General Details'" class="w-auto flex flex-col bg-white shadow-xl mt-4 p-5">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-black text-xl font-bold">General Detailes </h2>
+                  <div class="flex items-center gap-2 text-2xl">
+                   
+                    <i class="fa fa-edit text-black"></i> <!-- Edit icon -->
+                  </div>
+                </div>
+  
+                 
+                 <div  class="mt-10 grid grid-cols-1   gap-2 md:grid-cols-3">
+                    <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">City</label>
+                        <span>{{DoctorData.generalDetails.city}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">State:</label>
+                        <span>{{DoctorData.generalDetails.state}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">country:</label>
+                        <span>{{DoctorData.generalDetails.country}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">zipcode:</label>
+                        <span>{{DoctorData.generalDetails.zipcode}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">Adhar Number:</label>
+                        <span>{{DoctorData.generalDetails.adharNumber  }}</span>
+                      </div>
+                      
+                 
+                </div>
+
+               
+              </div>
+              
+
+
+              <div *ngIf="selectedButton==='Professional Details'" class="w-auto flex flex-col bg-white shadow-xl mt-4 p-5">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-black text-xl font-bold">Professional Detailes </h2>
+                  <div class="flex items-center gap-2 text-2xl">
+                   
+                    <i class="fa fa-edit text-black"></i> <!-- Edit icon -->
+                  </div>
+                </div>
+  
+                 
+                 <div  class="mt-10 grid grid-cols-1   gap-2 md:grid-cols-3">
+                    <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">M.licenceNumber:</label>
+                        <span>{{DoctorData.professionalDetails.medicalLicenceNumber}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border  bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">Specialised Department:</label>
+                        <span>{{DoctorData.professionalDetails.specialisedDepartment}}</span>
+                      </div>
+
+                      <div class="rounded-xl border  bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700">bio:</label>
+                        <span>{{DoctorData.professionalDetails.bio}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-2">Experience:</label>
+                        <span>{{DoctorData.professionalDetails.totalExperience}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-2">patientsPerDay:</label>
+                        <span>{{DoctorData.professionalDetails.patientsPerDay}}</span>
+                      </div>
+                      
+                      <div class="rounded-xl border bg-slate-200 border-gray-200 p-2">
+                        <label class="font-bold text-gray-700 mr-2"> consultationFee:</label>
+                        <span>{{DoctorData.professionalDetails.consultationFee}}</span>
+                      </div>
+                      
+                 
+                </div>
+
+               
+              </div>
+
+              <div *ngIf="selectedButton==='Change Password'" class="w-auto flex flex-col bg-white shadow-xl mt-4 p-5">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-black text-xl font-bold mb-7"> Change Password </h2>
+                  <div class="flex items-center gap-2 text-2xl">
+                   
+                    <i class="fa fa-edit text-black"></i> <!-- Edit icon -->
+                  </div>
+                </div>
+  
+                 
+             <div class="flex flex-col gap-2">
+                <label for="old Password">Current Password</label>
+                <input type="text" class="border border-gray-200 bg-slate-200 rounded-xl">
+                <label for="New Password">New Password</label>
+                <input type="text" class="border border-gray-200 bg-slate-200 rounded-xl">
+                <label for="Confirm Password">Confirm Password</label>
+                <input type="text" class="border border-gray-200 bg-slate-200 rounded-xl">
+                  
+
+             </div>
+             <div class="flex justify-end" >
+                <button class=" mt-10 bg-customBlue rounded-lg px-6 py-2">Save Changes</button>
+
+             </div>
+          
+                   
+                    
+                      
+                 
+               
+               
+              </div>
+             
+              
+       
+
+   
+
+   
+  
+
+  
+  
+
+
+    </div>

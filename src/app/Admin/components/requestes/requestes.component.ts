@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { doctorDetails } from '../../interfaces/interface';
+import { Doctor } from '../../../GolbalStore/global.model';
 
 
 

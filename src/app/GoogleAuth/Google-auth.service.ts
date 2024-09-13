@@ -31,7 +31,7 @@ export class GoogleAuthService {
             (JSON.stringify(response))
             localStorage.setItem('token', response?.data.accessToken)
             this.toaster.success(response.message)
-            this.ngZone.run(() => this.router.navigate(['/my-appointments']));
+            this.ngZone.run(() => this.router.navigate(['/find-Doctors']));
 
           },
           error:(err)=>{

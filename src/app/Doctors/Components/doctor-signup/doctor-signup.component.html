@@ -193,6 +193,12 @@
             <input formControlName="totalExperience" name="totalExperience" type="number" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all" placeholder="Enter totalExperience you Have " />
             <div *ngIf="professionalDetailsForm.get('totalExperience')?.invalid && professionalDetailsForm.get('totalExperience')?.touched" class="text-red-600">country is required</div>
           </div>
+
+          <div>
+            <label class="text-gray-800 text-sm mb-2 block">Bio</label>
+            <input formControlName="bio" name="bio" type="text" class="bg-gray-100 focus:bg-transparent w-full text-sm text-gray-800 px-4 py-3 rounded-md outline-blue-500 transition-all" placeholder="Enter Your Bio " />
+            <div *ngIf="professionalDetailsForm.get('bio')?.invalid && professionalDetailsForm.get('bio')?.touched" class="text-red-600">bio is required With minimum 20 characters</div>
+          </div>
       
           <!-- patientsPerDay -->
           <div>

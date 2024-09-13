@@ -11,7 +11,7 @@
     <aside id="sidebar" [ngClass]="{'translate-x-0': isSidebarOpen, '-translate-x-full': !isSidebarOpen}" class="fixed inset-0 z-30 flex-shrink-0 w-64 border-gray-200 text-black transform md:translate-x-0 md:relative transition-transform duration-300 bg-gray-200 md:bg-gray-100">
         <div class="h-full flex flex-col">
             <!-- User Profile -->
-            <div class="bg-blue-400 h-[200px] mb-2 p-2  text-black">
+            <div class="bg-blue-100 h-[200px] mb-2 p-2  text-black">
                 <div class="flex flex-col items-center border-gray-700">
                   <i class="fas fa-user-circle mt-5 text-gray-400 text-5xl mb-10"></i>
                  
@@ -28,7 +28,7 @@
             <nav class="flex-1 overflow-y-auto ">
                 <ul class="space-y-1 ">
                     <!-- Sidebar Items -->
-                    <li routerLink="/Doctor-Dashboard" class="sidebar-item hover:bg-gray-200" routerLinkActive="bg-blue-600" >
+                    <li routerLink="/Doctor-Dashboard" class="sidebar-item hover:bg-gray-200" routerLinkActive="bg-customBlue" >
                         <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Dashboard')">
                             <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zM13 3v18h8V3h-8z"/>
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     
-                    <li routerLink="/availableTimings" class="sidebar-item hover:bg-gray-200" routerLinkActive="bg-blue-600">
+                    <li routerLink="/availableTimings" class="sidebar-item hover:bg-gray-200" routerLinkActive="bg-customBlue">
                         <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Available Times')">
                             <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8v-2H6V4h8v2h4a2 2 0 0 0 2-2V2h-4zm-1 5h-4V5h4v2zM5 10h14v2H5v-2zm0 4h14v2H5v-2zm0 4h14v2H5v-2z"/>
@@ -102,7 +102,7 @@
                     </li>
                     
 
-                    <li class="sidebar-item hover:bg-gray-200" >
+                    <li routerLink="/Profile" class="sidebar-item hover:bg-gray-200" routerLinkActive="bg-customBlue" >
                         <a class="flex items-center p-2 rounded-md" (click)="handleSidebarItemClick('Settings')">
                             <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M19.14 12.94l1.43-1.43a2.2 2.2 0 0 0 0-3.11l-1.43-1.43a2.2 2.2 0 0 0-3.11 0l-1.43 1.43a6.984 6.984 0 0 0-3.69-1.01V3.5h-2v3.4a6.984 6.984 0 0 0-3.69 1.01L5.97 7.97a2.2 2.2 0 0 0-3.11 0L1.43 9.4a2.2 2.2 0 0 0 0 3.11l1.43 1.43a6.984 6.984 0 0 0 0 4.92L1.43 18.97a2.2 2.2 0 0 0 0 3.11l1.43 1.43a2.2 2.2 0 0 0 3.11 0l1.43-1.43a6.984 6.984 0 0 0 3.69 1.01v3.4h2v-3.4a6.984 6.984 0 0 0 3.69-1.01l1.43 1.43a2.2 2.2 0 0 0 3.11 0l1.43-1.43a2.2 2.2 0 0 0 0-3.11l-1.43-1.43a6.984 6.984 0 0 0 0-4.92zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>

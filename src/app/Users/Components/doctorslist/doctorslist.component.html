@@ -1,0 +1,154 @@
+<app-navbar></app-navbar>
+
+<div class="flex">
+    <!-- Sidebar Component -->
+  <app-user-slidebar></app-user-slidebar>
+  
+
+  
+    <!-- Main Content -->
+    <div class="flex-1 sm:ml-0 p-6 md:ml-8">
+     
+            <h1 class="text-2xl font-semibold text-black">Find Doctors</h1>
+            <hr class="text-gray-200 mt-4 ml-0">
+          
+   
+        
+     
+
+
+        
+          
+                
+
+               
+                 <!-- Main Container -->
+<div class="flex   flex-col md:flex-row ">
+  
+   
+     <div class="bg-white rounded-lg shadow-md p-10 w-[300px] h-auto max-h-[400px] overflow-y-auto mt-20">
+
+        <h2 class="text-black font-bold mb-2">Gender</h2>
+      
+        <div class="flex items-center mb-2">
+          <input id="male-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
+          <label for="male-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
+        </div>
+  
+  
+        <div class="flex items-center mb-2">
+          <input id="female-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="female-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
+        </div>
+  
+  
+        <div class="flex items-center mb-2">
+          <input id="other-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="other-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Other</label>
+        </div>
+  
+        <h2 class="text-black font-bold mb-2">Department</h2>
+  
+    
+        <div class="flex items-center mb-2">
+          <input id="cardiology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
+          <label for="cardiology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cardiology</label>
+        </div>
+  
+        <div class="flex items-center mb-2">
+          <input id="orthopedics-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Orthopedics</label>
+        </div>
+  
+        <div class="flex items-center mb-2">
+          <input id="neurology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="neurology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Neurology</label>
+        </div>
+  
+        <div class="flex items-center mb-2">
+          <input id="oncology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="oncology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Oncology</label>
+        </div>
+  
+        <div class="flex items-center mb-2">
+          <input id="urology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="urology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Urology</label>
+        </div>
+  
+        <div class="flex items-center mb-2">
+          <input id="dermatology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="dermatology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dermatology</label>
+        </div>
+      </div> 
+   
+  
+ 
+    <div class="bg-white-500 mt-2 w-full   md:ml-5 ">
+        <div class="h-[650px] overflow-auto px-4">
+            <!-- Search Input -->
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              (input)="onSearch($event)" 
+              class="w-full py-3 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          
+            <!-- Display Doctors -->
+            <div *ngIf="(filteredDoctors$ | async)?.length; else noDoctors">
+              <div *ngFor="let doctor of filteredDoctors$ | async" class="flex flex-col md:flex-row items-center p-5 mb-4 bg-white rounded-xl shadow-xl border-gray-400">
+                <!-- Doctor Image -->
+                <div class="p-2 md:w-48 md:h-48 w-24 h-24 rounded-xl">
+                  <img src="/assets/Images/Doctor1.jpeg" alt="Doctor Image" class="rounded-3xl w-full h-full object-cover">
+                </div>
+                <!-- Doctor Details -->
+                <div class="md:ml-4 w-full flex-1 mt-4 md:mt-0">
+                  <h1 class="text-lg font-semibold flex items-center">
+                    <i class="fas fa-user-md text-blue-500 mr-2"></i>
+                    {{doctor.personalDetails.firstName}} {{doctor.personalDetails.lastName}}
+                    <i class="fas fa-check-circle text-green-400 ml-2"></i>
+                  </h1>
+                  <p class="text-gray-600 flex items-center mt-2">
+                    <i class="fas fa-stethoscope mr-2"></i>
+                    {{doctor.professionalDetails.specialisedDepartment}}
+                  </p>
+                  <p class="text-gray-600 flex items-center mt-2">
+                    <i class="fas fa-briefcase mr-2"></i> 
+                    {{doctor.professionalDetails.totalExperience}} Years of Exp.
+                  </p>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-col gap-3 justify-center md:justify-end items-center mt-4 md:mt-0 w-full md:w-auto">
+                  <button class="bg-blue-500 text-white py-2 px-4 w-full md:w-44 rounded-lg hover:bg-blue-700" [routerLink]="['/profile', doctor._id]">View Profile</button>
+                  <button class="bg-green-500 text-white py-2 px-4 w-full md:w-44 rounded-lg hover:bg-green-700" [routerLink]="['/available-Times', doctor._id]">Book Appointment</button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- No Doctors Found -->
+            <ng-template #noDoctors>
+              <p>No doctors found.</p>
+            </ng-template>
+          </div>
+          
+          
+        
+       
+    </div>
+    
+        
+
+
+     
+    </div>
+  </div>
+
+    </div>
+
+
+
+   
+        <!-- Card 1 -->
+       
+      
+ 
+

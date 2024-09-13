@@ -23,6 +23,7 @@ export interface generalDetails {
 export interface professionalDetails {
   medicalLicenceNumber: string;
   specialisedDepartment: string;
+  bio:string;
   totalExperience: number;
   patientsPerDay: number;
   consultationFee: number;
@@ -34,3 +35,37 @@ export interface doctorDetails {
   generalDetails: generalDetails;
   professionalDetails: professionalDetails;
 }
+
+
+
+export interface Slot {
+  startTime: string;
+  endTime: string;
+  day: string;
+  doctorId?: string; 
+}
+
+
+
+
+
+export interface commonResponse{
+  success?:true;
+  message?:string;
+
+}
+
+export interface slots {
+  _id: string;
+  startTime: string;
+  endTime: string;
+}
+
+export interface AvailableTimeResponse {
+  slots: slots[]; 
+  success?: boolean;
+  message?: string;
+  doctorId?: string;
+}
+
+

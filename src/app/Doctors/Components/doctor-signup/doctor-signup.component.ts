@@ -80,6 +80,7 @@ export class DoctorSignupComponent implements OnInit   {
     this.professionalDetailsForm = this.fb.group({
       medicalLicenceNumber: ['', Validators.required],
       totalExperience: ['', Validators.required],
+      bio:['',Validators.required],
       patientsPerDay: ['', Validators.required],
       specialisedDepartment:['',Validators.required],
       consultationFee: ['', Validators.required],

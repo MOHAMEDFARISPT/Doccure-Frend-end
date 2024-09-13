@@ -14,7 +14,7 @@
         </button>
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center space-x-10">
-            <a href="#" class="group text-black px-3 py-2 rounded-md text-lg font-medium hover:text-blue-600">Find Doctors</a>
+            <a routerLink="/find-Doctors" class="group text-black px-3 py-2 rounded-md md:text-lg text-sm font-medium hover:text-blue-600">Find Doctors</a>
             <a href="#" class="group text-black px-3 py-2 rounded-md text-lg font-medium  hover:text-blue-600">Blogs</a>
             <a href="#" class="group text-black px-3 py-2 rounded-md text-lg font-medium  hover:text-blue-600">About Us</a>
             <div class="flex gap-6">
@@ -33,7 +33,7 @@
 <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 transition-transform transform -translate-x-full md:hidden">
     <div class="flex flex-col h-full p-4">
         <button id="close-sidebar" class="text-gray-900 dark:text-white text-xl mb-4">✕</button>
-        <a href="#" class="text-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">Find Doctors</a>
+        <a routerLink="/find-Doctors"  class="text-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">Find Doctors</a>
         <a href="#" class="text-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">Blogs</a>
         <a href="#" class="text-gray-900 dark:text-white px-3 py-2 rounded-md text-sm font-medium">About Us</a>
         <div class="flex flex-col mt-4 gap-3">
@@ -44,6 +44,7 @@
                 Signup
             </button>
         </div>
+        
     </div>
 </div>
 

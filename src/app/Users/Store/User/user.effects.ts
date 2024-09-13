@@ -31,9 +31,7 @@ export class UserEffects {
       mergeMap(action =>
         this.userService.loginUser({ email: action.email, password: action.password }).pipe(
           map((response: loginResponse) => {
-            alert(response.data.accessToken)
          if(response.success){
-      
           this.toastr.success(response.message)
          
           return AuthActions.loginSuccess({user: response.data,Token: response.data.accessToken});
@@ -43,7 +41,6 @@ export class UserEffects {
          }      
           }),
           catchError(error => {
-            this.toastr.error('please login with Google Account');
             return of(AuthActions.loginFailure({ error: error.message }));
           })
         )
@@ -58,7 +55,7 @@ export class UserEffects {
       ofType(AuthActions.loginSuccess),
       tap(action => {
         localStorage.setItem('token', action.Token);
-        this.router.navigate(['/my-appointments']).catch(err => {
+        this.router.navigate(['/find-Doctors']).catch(err => {
           console.error('Navigation error:', err);
         });
       })
@@ -72,7 +69,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginFailure),
       tap(action => {
-        console.error('Login failed:', action.error);
+       
         
       })
     ),

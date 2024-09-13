@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Doctor } from '../../GolbalStore/global.model';
 import { doctorLogin, doctorRegistration, doctorResponse, loginDoctorResponse } from '../Doctors-Interfaces/DoctorInterface';
 import { environment } from '../../../Environement/environment';
+import { Slot } from '../../Admin/interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,48 @@ export class DoctorServiceService {
 
  loginDoctor(LoginData:doctorLogin):Observable<loginDoctorResponse>{
   const result= this.http.post<loginDoctorResponse>(`${this.apiUrl}/Doctors/Doctor-login`,{email:LoginData.email,password:LoginData.password})
-  console.log("result??>>",result)
   return result
 }
+
+
+
+saveSlot(slotData: Slot){
+  const doctor = localStorage.getItem('Doctor');
+  let payload;
+  if(doctor){
+    let parsed=JSON.parse(doctor)
+    let doctorId=parsed._id
+
+   payload = { ...slotData, doctorId };
+ 
+
+  }
+
+   
+  return this.http.post<any>(`${this.apiUrl}/Doctors/available-slots`, payload);
+  
+}
+
+
+
+deleteAllSlots(day:string){
+
+  const doctor = localStorage.getItem('Doctor');
+  let doctorId;
+  if(doctor){
+    let parsed=JSON.parse(doctor)
+   doctorId=parsed._id
+
+  }
+
+  return this.http.post<any>(`${this.apiUrl}/Doctors/deleteSlots`,{day:day,doctorId:doctorId})
+
+}
+
+
+
+
+
+
 
 }

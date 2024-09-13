@@ -10,6 +10,9 @@ module.exports = {
         '9xl': '767px',
       
       },
+      colors: {
+        customBlue: '#0E82FD',
+      },
     },
   },
   plugins: [require('flowbite/plugin') ],

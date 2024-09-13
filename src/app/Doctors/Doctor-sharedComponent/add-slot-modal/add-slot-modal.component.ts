@@ -1,59 +1,78 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
   selector: 'app-add-slot-modal',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,CommonModule],
   templateUrl: './add-slot-modal.component.html',
-  styleUrl: './add-slot-modal.component.css'
+  styleUrls: ['./add-slot-modal.component.css']
 })
 export class AddSlotModalComponent {
-  startTime!: string;
-  endTime!: string;
-  @Output() closeEvent = new EventEmitter<{ startTime: string, endTime: string }>();
+  constructor(private notificationService: ToastrService) { }
 
-constructor(){
-  this.startTime = ''; 
-  this.endTime = '';  
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() submitTime = new EventEmitter<{ startTime: string, endTime: string, totalSlots: number }>();
+
+  startTime: string = '';
+  endTime: string = '';
+  timePeriod: number = 0;
+  totalSlots: number = 0;
+
+  // Close the modal
+  close(): void {
+    this.closeModal.emit();
+  }
+
+  // Submit form data
+  submit(): void {
+
+    if (this.startTime && this.endTime && this.timePeriod > 0) {
+      // Calculate total slots
+      this.totalSlots = this.calculateTotalSlots(this.startTime, this.endTime, this.timePeriod);
+
+      // Emit the data to the parent component
+      this.submitTime.emit({
+        startTime: this.formatTime(this.startTime),
+        endTime: this.formatTime(this.endTime),
+        totalSlots: this.totalSlots
+      });
+
+      // Close the modal
+      this.close();
+    } else {
+      this.notificationService.error("Please ensure all fields are valid.");
+    }
+  }
+
+  // Helper function to calculate total slots
+  calculateTotalSlots(startTime: string, endTime: string, timePeriod: number): number {
+    const start = this.convertTimeToMinutes(startTime);
+    const end = this.convertTimeToMinutes(endTime);
+    const totalMinutes = end - start;
+
+    if (totalMinutes > 0 && timePeriod > 0) {
+      return Math.floor(totalMinutes / timePeriod);
+    } else {
+      return 0;
+    }
+  }
+
+  // Convert HH:MM format time to total minutes
+  convertTimeToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
+
+  // Format time to 12-hour format with AM/PM
+  formatTime(time: string): string {
+    const [hours, minutes] = time.split(':').map(Number);
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const adjustedHours = hours % 12 || 12;
+    return `${adjustedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
+  }
 }
 
-
-
-  close(){
-    this.closeEvent.emit({ startTime: '', endTime: '' });
-  }
-
-  convertTimeTo12HourFormat( time: string): string {
-    const [hour, minute] = time.split(':');
-    let period = 'AM';
-    let adjustedHour = parseInt(hour, 10);
-  
-    if (adjustedHour >= 12) {
-      period = 'PM';
-      if (adjustedHour > 12) {
-        adjustedHour -= 12;
-      }
-    } else if (adjustedHour === 0) {
-      adjustedHour = 12;
-    }
-  
-    return `${this.pad(adjustedHour)}:${minute} ${period}`;
-  }
-  
-  pad(number: number): string {
-      return number < 10 ? '0' + number : number.toString();
-    }
-  
-  saveTimes() {
-    const formattedStartTime =this.convertTimeTo12HourFormat(this.startTime);
-    const formattedEndTime =this.convertTimeTo12HourFormat(this.endTime);
-    this.closeEvent.emit({
-      startTime: formattedStartTime,
-      endTime: formattedEndTime
-    });
-   
-  }
-
-}

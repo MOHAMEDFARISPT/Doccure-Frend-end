@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../Environement/environment';
@@ -6,6 +6,8 @@ import { loginResponse, UserData } from '../Interfaces/userInterface'
 import { loginSuccess } from '../Store/User/user.actions';
 import { User } from '../../GolbalStore/global.model';
 import {UserLoginData} from '../Interfaces/userInterface'
+import { AvailableTimeResponse } from '../../Admin/interfaces/interface';
+
 
 
 
@@ -13,6 +15,9 @@ import {UserLoginData} from '../Interfaces/userInterface'
   providedIn: 'root'
 })
 export class UserServicesService {
+  resendOtp(useremail: string) {
+    throw new Error('Method not implemented.');
+  }
 private apiUrl =environment.apiUrl
 
   constructor(private http: HttpClient) {}
@@ -32,8 +37,9 @@ private apiUrl =environment.apiUrl
 
   // Method to send form data to the backend
   registerUser(userData: UserData): Observable<{data:User,success:Boolean,message:string}> {
-    return this.http.post<{data:User,success:Boolean,message:string}>(`${this.apiUrl}/users/register`, userData);
-  
+    return  this.http.post<{data:User,success:Boolean,message:string}>(`${this.apiUrl}/users/register`, userData);
+ 
+
   }
 
   verifyOtp(data: { otp: string, email: string }):Observable<{success:boolean,message:string}>{
@@ -44,7 +50,18 @@ private apiUrl =environment.apiUrl
   //login request
   loginUser(loginData:UserLoginData):Observable<loginResponse>{
     
-    return this.http.post<loginResponse>(`${this.apiUrl}/users/login`,loginData)
+    return  this.http.post<loginResponse>(`${this.apiUrl}/users/login`,loginData)
+   
+  
+  
   }
+
+  loadAvailableTime(drid: string, selectedDay: string): Observable<AvailableTimeResponse> {
+    const params = new HttpParams()
+      .set('drid', drid)
+      .set('selectedDay', selectedDay);
+    return this.http.get<AvailableTimeResponse>(`${this.apiUrl}/users/available-times`, { params });
+  }
+
  
 }

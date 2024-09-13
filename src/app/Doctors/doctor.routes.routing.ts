@@ -5,6 +5,7 @@ import { DoctorLoginComponent } from "./Components/doctor-login/doctor-login.com
 import { DoctorSignupComponent } from "./Components/doctor-signup/doctor-signup.component";
 import { AuthGuard } from "./Guards/Auth.guard";
 import { AvailableTimingsComponent } from "./Components/available-timings/available-timings.component";
+import { ProfileComponent } from "./Components/profile/profile.component";
 
 
 
@@ -12,6 +13,7 @@ export const DoctorRoutes: Routes = [
     { path: 'Doctor-login', component: DoctorLoginComponent },
     { path: 'Doctor-register', component: DoctorSignupComponent },
      {path:'Doctor-Dashboard',component:HomeComponent,canActivate:[AuthGuard]},
-     {path:'availableTimings',component:AvailableTimingsComponent}
+     {path:'availableTimings',component:AvailableTimingsComponent},
+     {path:'Profile',component:ProfileComponent}
    
   ];
