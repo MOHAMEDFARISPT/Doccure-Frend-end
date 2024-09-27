@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 })
 export class PatientManagementComponent implements OnInit {
   patientTableHeaders: string[] = ['No', 'PatientName', 'Age', 'PhoneNumber', 'paidAmount'];
-  patientTableData: any[] = [];
+  patientTableData: {No:number,PatientName:string,Age:number,PhoneNumber:string | undefined,paidAmount:number}[] = [];
 
   // Observable to hold the patients list from the store
   patients$: Observable<User[]> = this.store.select(selectAllUsers);

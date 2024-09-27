@@ -9,8 +9,13 @@ import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { reload } from 'firebase/auth';
 import { DoctorSlotService } from '../../services/doctor-slotsService.service';
-import { AvailableTimeResponse, commonResponse } from '../../../Admin/interfaces/interface';
+import { AvailableTimeResponse, commonResponse, doctorDetails, slots } from '../../../Admin/interfaces/interface';
 import { TimeFormatPipe } from '../../../TimeFormatePipe/time-format.pipe';
+import { select, Store } from '@ngrx/store';
+import { AuthState } from '../../Store/doctor.state';
+import * as DoctorActions from '../../Store/doctor.action'
+import { selectDoctor } from '../../Store/doctor.store';
+import { TimeSlot } from '../../../Users/Interfaces/userInterface';
 
 @Component({
   selector: 'app-available-timings',
@@ -23,36 +28,56 @@ export class AvailableTimingsComponent implements OnInit {
   constructor(
     private doctorService: DoctorServiceService,
     private doctorslotService: DoctorSlotService,
-    private toasterService: ToastrService
+    private toasterService: ToastrService,
+    private store:Store<AuthState>
   ) { }
 
   selectedDay: string = 'Monday';
-  selectedTimes: any[] = [];
+  selectedTimes: slots[] = [];
   openModal: boolean = false;
+  DoctorId$!: Observable<doctorDetails | null>;
+  doctorId:string |undefined
+  selectedTime!:TimeSlot;
 
   ngOnInit(): void {
-    initFlowbite();
-    this.loadSlots()
+    this.store.dispatch(DoctorActions.loadDoctor());
+    this.DoctorId$ = this.store.pipe(select(selectDoctor));
+  
+    this.DoctorId$.subscribe((Doctor) => {
+      this.doctorId = Doctor?._id;
+      if (this.doctorId) {
+        console.log("Doctor ID loaded:", this.doctorId);
+
+
+
+        this.loadSlots(this.doctorId);
+       
+      }
+    });
+  
 
   }
+  selectTime(time:TimeSlot){
+    this.selectedTime=time
+  }
+  
 
-  loadSlots() {
+  loadSlots(doctorId:string|undefined) {
 
 
-    this.doctorslotService.getSlots(this.selectedDay).subscribe({
+
+    this.doctorslotService.getSlots(this.selectedDay,doctorId).subscribe({
       next: (res: AvailableTimeResponse) => {
-        console.log('res', res);  // Check the response structure
 
         if (res.success) {
           // Display or process slots
           this.selectedTimes = res.slots;
-          console.log('Available slots:', this.selectedTimes);  // Log available slots
+        
         } else {
           this.toasterService.error(res.message);
         }
       },
       error: (err) => {
-        console.error('Error fetching slots:', err);
         this.toasterService.error('Failed to load slots');
       }
     });
@@ -60,7 +85,7 @@ export class AvailableTimingsComponent implements OnInit {
 
   SelectedDay(day: string): void {
     this.selectedDay = day;
-    this.loadSlots()
+    this.loadSlots(this.doctorId )
   }
 
   AddSlotOpen(): void {
@@ -88,14 +113,16 @@ export class AvailableTimingsComponent implements OnInit {
         endTime: slot.endTime,
       };
 
+    
+
 
 
       // Use subscribe() without await
-      this.doctorslotService.saveSlotData(slotToSave).subscribe({
+      this.doctorslotService.saveSlotData(slotToSave,this.doctorId).subscribe({
         next: (res) => {
           if (res.success) {
             this.toasterService.success(res.message);
-            this.loadSlots()
+            this.loadSlots(this.doctorId)
           } else {
             this.toasterService.error(res.message);
           }
@@ -118,31 +145,28 @@ export class AvailableTimingsComponent implements OnInit {
 
 
   deleteSlot(_id: string) {
-    alert(_id)
     let data={
       Slotid:_id,
-      day:this.selectedDay
+      day:this.selectedDay,
+      doctorId:this.doctorId
     }
     this.doctorslotService.deleteSlot(data).subscribe({
       next:(res:commonResponse)=>{
         if(res.success){
+          this.selectedTimes=this.selectedTimes.filter((slot)=>slot._id!==data.Slotid)
           this.toasterService.success(res.message)
-          window.location.reload()
-
         }else{
           this.toasterService.error(res.message)
         }
 
       }
     })
-
-
   }
 
 
   deleteAll(){
-    this.doctorslotService.deleteAllSlots(this.selectedDay).subscribe({
-      next:(res:any)=>{
+    this.doctorslotService.deleteAllSlots(this.selectedDay,this.doctorId).subscribe({
+      next:(res:commonResponse)=>{
         if(res.success){
           this.toasterService.success(res.message)
           window.location.reload()
@@ -167,7 +191,8 @@ export class AvailableTimingsComponent implements OnInit {
 
     // Validate the time range
     if (isNaN(startMinutes) || isNaN(endMinutes) || startMinutes >= endMinutes) {
-      console.error('Invalid time range: Start time should be earlier than end time.');
+      this.toasterService.error('Invalid time range: Start time should be earlier than end time.')
+    
       return [];
     }
 
@@ -190,7 +215,7 @@ export class AvailableTimingsComponent implements OnInit {
       });
     }
 
-    console.log('Slots Array:', slotsArray);
+
     return slotsArray;
   }
 
@@ -199,7 +224,7 @@ export class AvailableTimingsComponent implements OnInit {
     const [timePart, modifier] = time.trim().split(' ');
     const [hours, minutes] = timePart.split(':').map(Number);
     if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 12 || minutes < 0 || minutes >= 60 || !modifier) {
-      console.error('Invalid time format:', time);
+     
       return NaN;
     }
     let adjustedHours = hours;
@@ -216,7 +241,6 @@ export class AvailableTimingsComponent implements OnInit {
 
   convertMinutesToTime(minutes: number): string {
     if (isNaN(minutes) || minutes < 0) {
-      console.error('Invalid minutes value:', minutes);
       return '00:00';
     }
 

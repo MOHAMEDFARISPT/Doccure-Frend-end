@@ -27,7 +27,7 @@ export class AuthGuard  {
       if (token) {
         try {
           const decodedToken: DecodedToken = jwt_decode.jwtDecode(token) as DecodedToken;
-          console.log("decodedToken////", decodedToken);
+         
 
         
 
@@ -35,7 +35,7 @@ export class AuthGuard  {
               
   
           const currentTime = Math.floor(Date.now() / 1000);
-          console.log("Current time", currentTime);
+    
   
           if (decodedToken.exp < currentTime) {
        
@@ -64,7 +64,7 @@ export class AuthGuard  {
         }
       } else {
    
-        this.notificationToastr.warning('Please login to access this page');
+        this.notificationToastr.warning('Please login ');
         this.router.navigate(['/Doctor-login']);
         return false;
       }

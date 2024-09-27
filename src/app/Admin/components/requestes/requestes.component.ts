@@ -30,7 +30,7 @@ export class RequestesComponent implements OnInit {
 
   ngOnInit(): void {
     this.AdminService.getDoctorDetails().subscribe({
-      next: (response:any) => {
+      next: (response:doctorDetails[]) => {
         console.log("res//",response)
     
           this.doctorDetails = response

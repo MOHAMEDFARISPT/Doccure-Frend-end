@@ -1,0 +1,139 @@
+<div class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="flex flex-row w-full">
+        <!-- Sidebar -->
+        <app-admin-slidebar class="lg:w-1/5"></app-admin-slidebar>
+
+        <!-- Main Content -->
+        <div class="container mx-auto p-6  lg:w-4/5 py-10">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row  mb-4 lg:justify-between items-center mt-10 space-y-4 lg:space-y-0">
+                <!-- Left: List of Patients -->
+                <div class="flex-1 lg:flex-none">
+                    <h3 class="text-black font-bold ml-5">Appointments</h3>
+                </div>
+
+                <!-- Center: Search Bar and Profile Icon -->
+                <div class="flex flex-col sm:flex-row md:flex-row  items-center space-y-4 lg:space-y-0 lg:space-x-4 flex-1 lg:flex-none">
+                    <!-- Search Bar -->
+                   
+                    <div class="relative">
+                        <input type="text" id="searchBar" placeholder="Search..." class="w-full md:w-auto p-2 border border-gray-300 rounded-md bg-white text-gray-700 pr-12">
+                        <button type="button" class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM21 21l-4.35-4.35"/>
+                          </svg>
+                          <span class="sr-only">Search</span>
+                        </button>
+                      </div>
+                    
+
+                    <!-- Profile Icon -->
+                    <button type="button" class="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg">
+                        <div class="pl-1">
+                            <svg
+                                viewBox="0 0 32 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                role="presentation"
+                                focusable="false"
+                                style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"
+                            >
+                                <g fill="none" fill-rule="nonzero">
+                                    <path d="m2 16h28"></path>
+                                    <path d="m2 24h28"></path>
+                                    <path d="m2 8h28"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="block flex-grow-0 flex-shrink-0 h-10 w-12 pl-5">
+                            <svg
+                                viewBox="0 0 32 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                role="presentation"
+                                focusable="false"
+                                style="display: block; height: 100%; width: 100%; fill: currentcolor;"
+                            >
+                                <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"></path>
+                            </svg>
+                        </div>
+                    </button>
+
+
+
+
+                   
+                </div>
+            </div>
+            <hr class="text-black" />
+
+            <div *ngIf="Appointments$ | async as appointments; else loading" class="grid grid-cols-1 gap-7 mt-8 bg-white-300 p-4">
+                <!-- Inner grid with 5 columns on md screens and 1 column on smaller screens -->
+                <div *ngFor="let appointment of appointments" class="grid md:grid-cols-4 sm:grid-cols-1 bg-white shadow-md border rounded-lg gap-2 p-3">
+                   
+                    <div class="flex md:flex-row flex-col sm:ml-2 md:items-center bg-white p-1  w-auto">
+                    <img src="/assets/Images/Doctor1.jpeg" alt="Doctor Image" class="w-20 h-20 p-2 rounded-xl">
+                    <div class="ml-1 ">
+                      <p class="text-black sm:text-xs  font-semibold">{{appointment.doctorId.personalDetails.firstName}} {{appointment.doctorId.personalDetails.lastName}}</p>
+                      <p class="text-gray-600 sm:text-sm">{{appointment.doctorId.professionalDetails.specialisedDepartment | capitalize}}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="bg-white md:pl-7 sm:pl-10 ">
+                    <div class="md:ml-4 ml-1 md:mt-6 sm:mt-2">
+                      <p class="sm:text-xs "><i class="fa fa-clock mr-2"></i>{{appointment.slotId.day}} {{appointment.slotId.startTime | timeFormat }}</p>
+                      <p class="sm:text-xs "><i class="fa fa-camera mr-2"></i>{{appointment.consultationType}}</p>
+          
+              
+                    </div>
+                  </div>
+                 
+                 
+                  <div class="bg-white pl-1">
+                    <div class="md:ml-1 ml-1  md:mt-6 sm:mt-3 ">
+                      <p class="sm:text-xs">
+                        <i class="fa fa-envelope hidden md:inline mr-1"></i> 
+                       {{appointment.doctorId.personalDetails.email}}
+                      </p>
+                      
+                      
+                      <p class="sm:text-xs "><i class="fa fa-phone mr-2"></i>+91 {{appointment.doctorId.personalDetails.contactNumber}}</p>
+              
+                    </div>
+                  </div>  
+                  <div class="bg-white pl-1">
+                    <div class="ml-1 md:mt-8 sm:mt-3">
+                      <div class="flex md:flex-row sm:flex-col md:ml-7 ml-2">
+                        <p *ngIf="appointment.consultaionStatus=='upcoming'" class="inline-block border text-xs cursor-pointer rounded-xl border-black  p-1 bg-green-500 mr-16">{{appointment.consultaionStatus}}</p>
+                        <p *ngIf="appointment.consultaionStatus=='cancelled'" class="inline-block border text-xs cursor-pointer rounded-xl border-black  p-1 bg-red-500 mr-16">{{appointment.consultaionStatus}}</p>
+                        <p    class="inline-block sm:border cursor-pointer sm:border-black  sm:rounded-xl md:border-none">
+                          <i class="fa fa-eye text-lg"></i>
+                        </p>
+                        
+                      </div>
+                    </div>
+                  </div>
+          
+                
+                </div>
+                
+              
+              
+              </div>
+          
+              <ng-template #loading>
+                <p>Loading...</p>
+              </ng-template>
+
+           
+
+
+
+      
+       
+        </div>
+
+
+     
+    </div>
+</div>

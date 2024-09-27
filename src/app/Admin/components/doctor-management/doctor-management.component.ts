@@ -19,7 +19,9 @@ import { CommonModule } from '@angular/common';
 })
 export class DoctorManagementComponent implements OnInit {
   DoctorTableHeaders: string[] = ['No', 'DoctorName', 'Age', 'Specialisation', 'Experience'];
-  DoctorTableData: any[] = [];
+  DoctorTableData: {No:Number,DoctorName:string,Age:Number,Specialisation:string,Experience:number}[] = [];
+
+  
 
 
   // Observable to hold the doctors list from the store

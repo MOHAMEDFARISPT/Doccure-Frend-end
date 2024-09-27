@@ -31,7 +31,7 @@ export class AuthGuard  {
           const currentTime = Math.floor(Date.now() / 1000);
          
              
-          console.log("decodedToken////",decodedToken.userId)
+          
           
 
           if (decodedToken.exp < currentTime) {

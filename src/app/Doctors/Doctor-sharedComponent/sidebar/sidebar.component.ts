@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthState } from '../../Store/doctor.state';
+import { doctorDetails } from '../../../Admin/interfaces/interface';
+import * as DoctorActions from '../../Store/doctor.action'
 import { select, Store } from '@ngrx/store';
 import { selectDoctor } from '../../Store/doctor.store';
-import { passwordStrengthValidator } from '../../../Users/utility/formvalidation';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +19,8 @@ export class SidebarComponent implements OnInit {
 
   isSidebarOpen = false;
   activeItem: string = 'Dashboard';
-routerLinkActive: any;
+routerLinkActive!: string;
+doctor$!: Observable<doctorDetails | null>;
 DoctorName!:string;
 DoctorSpecialisation!:string
 Doctoremail!:string;
@@ -42,7 +44,6 @@ constructor(private store: Store<AuthState>){}
 
   handleSidebarItemClick(item: string) {
     this.activeItem = item;
-    // Your existing logic for item click
   }
 
  
@@ -51,22 +52,31 @@ constructor(private store: Store<AuthState>){}
 
 
   ngOnInit(): void {
-    const DoctorProfile = localStorage.getItem('Doctor');
-    
-    if (DoctorProfile) {
-      const parsedDoctorProfile = JSON.parse(DoctorProfile);
+    this.store.dispatch(DoctorActions.loadDoctor())
+  this.doctor$=this.store.pipe(select(selectDoctor))
 
-      if(parsedDoctorProfile){
-        this.DoctorName=parsedDoctorProfile.personalDetails.firstName+' '+parsedDoctorProfile.personalDetails.lastName
-        this.DoctorSpecialisation=parsedDoctorProfile.professionalDetails.specialisedDepartment
-        this.Doctoremail=parsedDoctorProfile.personalDetails.email
-      }
+ 
+
+
+
+
+
+    // const DoctorProfile = localStorage.getItem('Doctor');
+    
+    // if (DoctorProfile) {
+    //   const parsedDoctorProfile = JSON.parse(DoctorProfile);
+
+    //   if(parsedDoctorProfile){
+    //     this.DoctorName=parsedDoctorProfile.personalDetails.firstName+' '+parsedDoctorProfile.personalDetails.lastName
+    //     this.DoctorSpecialisation=parsedDoctorProfile.professionalDetails.specialisedDepartment
+    //     this.Doctoremail=parsedDoctorProfile.personalDetails.email
+    //   }
       
       
       
-    } else {
-      console.log("No Doctor profile found in localStorage.");
-    }
+    // } else {
+    //   console.log("No Doctor profile found in localStorage.");
+    // }
   }
 
    

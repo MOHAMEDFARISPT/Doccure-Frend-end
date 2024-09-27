@@ -10,6 +10,7 @@ import { NavbarComponent } from "../../../sharedComponents/Components/navBar/nav
 import { UserSlidebarComponent } from "../../../sharedComponents/Components/user-slidebar/user-slidebar.component";
 import { SearchandFiltersComponent } from "../../../sharedComponents/searchand-filters/searchand-filters.component";
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { doctorDetails } from '../../../Admin/interfaces/interface';
 
 @Component({
   selector: 'app-show-profile',
@@ -38,7 +39,7 @@ export class ShowProfileComponent implements OnInit {
 
       // Debugging - log the selected doctor
       this.doctor$.pipe(
-        tap((doctor: any) => console.log('Selected Doctor:', doctor))
+        tap((doctor: Doctor | undefined) => console.log('Selected Doctor:', doctor))
       ).subscribe();
     } else {
       console.error('No ID found in route parameters');

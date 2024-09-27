@@ -17,6 +17,11 @@ import { AdminRegistercomponent } from './Admin/components/admin-registercompone
 import { AdminloginComponent } from './Admin/components/adminlogin-component/adminlogin-component.component';
 import { AdminDashboardComponent } from './Admin/components/admin-dashboard/admin-dashboard.component';
 import { OnDisconnect } from 'firebase/database';
+import * as userActions from'./Users/Store/User/user.actions'
+import { AppState } from './Users/Store/User/user.state';
+import { Store } from '@ngrx/store';
+
+
 
 
 
@@ -37,8 +42,14 @@ import { OnDisconnect } from 'firebase/database';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent   {
+export class AppComponent implements OnInit   {
 title = 'Doccure-FrendEnd';
+constructor(private store:Store<AppState>){}
+
+ngOnInit(): void {
+  this.store.dispatch(userActions.loaduser())
+  
+}
 
 
 

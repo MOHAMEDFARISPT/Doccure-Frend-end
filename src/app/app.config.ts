@@ -24,6 +24,7 @@ import { getDatabase } from '@angular/fire/database';
 import { provideDatabase } from '@angular/fire/database';
 import { JwtInterceptor } from './Users/Intercepters/jwt.intercepter';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ErrorInterceptor } from './Intercepter/error.interceptor';
 
 
 
@@ -34,7 +35,7 @@ const appRoutes = [...userRoute, ...DoctorRoutes,...AdminRouted];
 export const appConfig = {
   providers: [
     provideAnimations(),
-    provideToastr({timeOut:1300,preventDuplicates:true}),
+    provideToastr({ timeOut: 1300, preventDuplicates: true }),
     provideRouter(appRoutes),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
@@ -44,20 +45,23 @@ export const appConfig = {
     importProvidersFrom(
       HttpClientModule,
       BrowserAnimationsModule,
-      EffectsModule.forRoot([UserEffects,DoctorEffects,GlobalEffects]),
-      StoreModule.forRoot({ user:userreducer,Doctor:DoctorReducer,global: globalReducer}) ,
-      
-       
-      
-    ),{
+      EffectsModule.forRoot([UserEffects, DoctorEffects, GlobalEffects]),
+      StoreModule.forRoot({ user: userreducer, Doctor: DoctorReducer, global: globalReducer })
+    ),
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }, provideAnimationsAsync()
-   
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    provideAnimationsAsync()
   ]
-  
 };
+
 
 
 

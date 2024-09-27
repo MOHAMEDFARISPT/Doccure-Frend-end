@@ -2,6 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../Environement/environment';
+import { select, Store } from '@ngrx/store';
+import { AuthState } from '../Store/doctor.state';
+import { selectDoctor, selectLoading } from '../Store/doctor.store';
+import { commonResponse, doctorDetails, slots } from '../../Admin/interfaces/interface';
+import * as DoctorActions from '../Store/doctor.action'
 
 
 
@@ -10,67 +15,55 @@ import { environment } from '../../../Environement/environment';
   providedIn: 'root'
 })
 export class DoctorSlotService {
+    DoctorId$!: Observable<doctorDetails | null>;
+    doctorid:string="hello"
    
     private apiUrl=environment.apiUrl
 
 
-    constructor(private http:HttpClient) { } 
+    constructor(private http:HttpClient,private store:Store<AuthState>) { } 
 
 
-    getSlots(day:string):Observable<any>{
-        const doctor = localStorage.getItem('Doctor');
-        let doctorId;
-        if(doctor){
-          let parsed=JSON.parse(doctor)
-         doctorId=parsed._id
-      
-        }
-      
+    getSlots(day:string,doctorId:string|undefined):Observable<any>{
+
+   
+
         return this.http.post<any>(`${this.apiUrl}/Doctors/getSlots`,{day:day,doctorId:doctorId})
   
       }
     
-    saveSlotData(slotData: any): Observable<any> {
-    const doctor = localStorage.getItem('Doctor');
-    let payload;
-    if(doctor){
-      let parsed=JSON.parse(doctor)
-      let doctorId=parsed._id
-  
-     payload = { ...slotData, doctorId };
+    saveSlotData(slotData: any,doctorId:string |undefined): Observable<commonResponse> {
+     const payload={...slotData,doctorId} 
+
+     console.log("payload.slotData",slotData)
+     console.log("doctorid",doctorId)
+       
+        return  this.http.post(`${this.apiUrl}/Doctors/available-slots`, payload);
+    
     }
-    return  this.http.post(`${this.apiUrl}/Doctors/available-slots`, payload);
-      }
+   
+      
 
 
 
 
-   deleteSlot(data: { Slotid: string; day: string; }) {
-   const doctor = localStorage.getItem('Doctor');
-    let payload;
-    if(doctor){
-      let parsed=JSON.parse(doctor)
-      let doctorId=parsed._id
-  
-     payload = { ...data, doctorId };
+   deleteSlot(data: { Slotid: string; day: string,doctorId:string |undefined }) {
+    const payload = { ...data };
+    console.log("payload",payload)
+    return this.http.post(`${this.apiUrl}/Doctors/deleteSlot`,payload)
    }
-   return this.http.post(`${this.apiUrl}/Doctors/deleteSlot`,payload)
+   
+
+
+ deleteAllSlots(day:string,doctorId:string | undefined){
+ 
+    return this.http.post(`${this.apiUrl}/Doctors/deleteAllslots`,{day,doctorid:doctorId })
+ }
+
 
 
  } 
 
 
- deleteAllSlots(day:string){
-    const doctor = localStorage.getItem('Doctor');
-    let payload;
-    if(doctor){
-        let parsed=JSON.parse(doctor)
-        let doctorId=parsed._id
-        payload={day,doctorId}
-    }
-    return this.http.post(`${this.apiUrl}/Doctors/deleteAllslots`,payload)
- }
 
-
-}
 

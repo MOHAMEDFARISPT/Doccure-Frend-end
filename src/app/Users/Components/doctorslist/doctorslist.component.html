@@ -26,60 +26,99 @@
 <div class="flex   flex-col md:flex-row ">
   
    
-     <div class="bg-white rounded-lg shadow-md p-10 w-[300px] h-auto max-h-[400px] overflow-y-auto mt-20">
+     <div class="bg-white rounded-lg shadow-md p-10 w-[300px] h-auto max-h-[800px] overflow-y-auto mt-20">
 
         <h2 class="text-black font-bold mb-2">Gender</h2>
       
         <div class="flex items-center mb-2">
-          <input id="male-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
-          <label for="male-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
-        </div>
-  
-  
-        <div class="flex items-center mb-2">
-          <input id="female-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="female-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Female</label>
-        </div>
-  
-  
-        <div class="flex items-center mb-2">
-          <input id="other-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="other-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Other</label>
-        </div>
-  
-        <h2 class="text-black font-bold mb-2">Department</h2>
-  
-    
-        <div class="flex items-center mb-2">
-          <input id="cardiology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
-          <label for="cardiology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cardiology</label>
-        </div>
-  
-        <div class="flex items-center mb-2">
-          <input id="orthopedics-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Orthopedics</label>
-        </div>
-  
-        <div class="flex items-center mb-2">
-          <input id="neurology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="neurology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Neurology</label>
-        </div>
-  
-        <div class="flex items-center mb-2">
-          <input id="oncology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="oncology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Oncology</label>
-        </div>
-  
-        <div class="flex items-center mb-2">
-          <input id="urology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="urology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Urology</label>
-        </div>
-  
-        <div class="flex items-center mb-2">
-          <input id="dermatology-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="dermatology-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dermatology</label>
-        </div>
+            <input 
+              id="male-checkbox" 
+              type="checkbox" 
+              (change)="onGenderChange(['male'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="male-checkbox" class="ms-2 text-sm font-medium text-gray-900">Male</label>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <input 
+              id="female-checkbox" 
+              type="checkbox" 
+              (change)="onGenderChange(['female'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="female-checkbox" class="ms-2 text-sm font-medium text-gray-900">Female</label>
+          </div>
+
+          <h2 class="text-black font-bold mb-2 mt-4">Department</h2>
+          
+          <!-- Department Checkboxes -->
+          <div class="flex items-center mb-2">
+            <input 
+              id="cardiology-checkbox" 
+              type="checkbox" 
+              (change)="onDepartmentChange(['cardiology'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="cardiology-checkbox" class="ms-2 text-sm font-medium text-gray-900">Cardiology</label>
+          </div>
+          
+          <div class="flex items-center mb-2">
+            <input 
+              id="orthopedics-checkbox" 
+              type="checkbox" 
+              (change)="onDepartmentChange(['orthopedics'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900">Orthopedics</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input 
+              id="orthopedics-checkbox" 
+              type="checkbox" 
+              (change)="onDepartmentChange(['Ent'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900">Ent</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input 
+              id="orthopedics-checkbox" 
+              type="checkbox" 
+              (change)="onDepartmentChange(['Pedriatic'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900">Pedriatic</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input 
+              id="orthopedics-checkbox" 
+              type="checkbox" 
+              (change)="onDepartmentChange(['Nuerology'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900">Nuerology</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input 
+              id="orthopedics-checkbox" 
+              type="checkbox" 
+              (change)="onDepartmentChange(['Gianacology'])" 
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label for="orthopedics-checkbox" class="ms-2 text-sm font-medium text-gray-900">Gianacology</label>
+          </div>
+          
+
+          <div class="flex justify-center mt-44 border border-gray-200 bg-customBlue rounded-xl px-4 py-3 mb-2">
+            <button (click)="clearSelections()">Clear Slections</button>
+          </div>
       </div> 
+
+
+
+      
+
    
   
  
@@ -93,10 +132,11 @@
               class="w-full py-3 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           
+            <app-spinner [isLoading$]="isLoading$"></app-spinner>
             <!-- Display Doctors -->
-            <div *ngIf="(filteredDoctors$ | async)?.length; else noDoctors">
+            <div  *ngIf="(filteredDoctors$ | async)?.length; else noDoctors">
               <div *ngFor="let doctor of filteredDoctors$ | async" class="flex flex-col md:flex-row items-center p-5 mb-4 bg-white rounded-xl shadow-xl border-gray-400">
-                <!-- Doctor Image -->
+         
                 <div class="p-2 md:w-48 md:h-48 w-24 h-24 rounded-xl">
                   <img src="/assets/Images/Doctor1.jpeg" alt="Doctor Image" class="rounded-3xl w-full h-full object-cover">
                 </div>
@@ -109,7 +149,7 @@
                   </h1>
                   <p class="text-gray-600 flex items-center mt-2">
                     <i class="fas fa-stethoscope mr-2"></i>
-                    {{doctor.professionalDetails.specialisedDepartment}}
+                    {{doctor.professionalDetails.specialisedDepartment | capitalize}}
                   </p>
                   <p class="text-gray-600 flex items-center mt-2">
                     <i class="fas fa-briefcase mr-2"></i> 

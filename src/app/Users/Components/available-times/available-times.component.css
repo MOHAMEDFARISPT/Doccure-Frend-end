@@ -1,0 +1,28 @@
+p:hover .booked-slot-tooltip::after {
+    content: "Booked";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  
+  .border-green-500 {
+    border-color: green;
+  }
+  
+  .border-black {
+    border-color: black;
+  }
+  
+  .booked-slot-tooltip {
+    position: relative;
+  }
+  
+  .booked-slot-tooltip.hidden {
+    visibility: visible;
+  }
+  

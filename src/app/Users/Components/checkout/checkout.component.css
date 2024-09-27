@@ -1,0 +1,7 @@
+
+   /* Add this CSS to your stylesheet */
+.active\:shadow-blue-500:active {
+    box-shadow: 10px 18px 25px rgba(0, 77, 244, 0.5); /* Blue shadow */
+}
+
+

@@ -59,6 +59,7 @@ export interface slots {
   _id: string;
   startTime: string;
   endTime: string;
+  isBooked:boolean
 }
 
 export interface AvailableTimeResponse {

@@ -10,8 +10,7 @@ export const DoctorReducer = createReducer(
       error: null,
     })),
     on(DoctorActions.loginSuccess, (state, { Doctor, token }) => {
-      localStorage.setItem('Doctor', JSON.stringify(Doctor));
-      localStorage.setItem('token', token);
+    
     
       return {
         ...state,
@@ -27,5 +26,30 @@ export const DoctorReducer = createReducer(
       Doctor:null,
       token:null,
       error,
-    }))
+    })),
+
+    on(DoctorActions.loadDoctor,(state)=>{
+      return {
+        ...state,
+        loading:true,
+        error:null
+
+      }
+    }),
+    on(DoctorActions.loadDoctorSuccess,(state,{Doctor})=>{
+      return {
+        ...state,
+        Doctor,
+        loading:false,
+        error:null
+      }
+    }),
+    on(DoctorActions.loadDoctorFailure,(state,{error})=>{
+      return {
+        ...state,
+        Doctor:null,
+        loading:false,
+        error
+      }
+    })
   );

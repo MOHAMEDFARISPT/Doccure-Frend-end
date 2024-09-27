@@ -2,7 +2,7 @@
     <app-navbar></app-navbar>
 
     <!-- Section with Background Image and Full Viewport Height/Width -->
-    <section class="relative bg-cover bg-center h-screen w-full text-white" style="background-image: url('assets/Images/landing-bg.jpeg');">
+    <section  class="relative bg-cover bg-center h-screen w-full text-white" style="background-image: url('assets/Images/landing-bg.jpeg');">
         
         <!-- Overlay to darken the background -->
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -90,11 +90,13 @@
     
    
     </section>
+ 
 
-    <section class="h-auto w-auto  py-5 lg:10  mr-7">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 ml-8">
+    <div *ngIf="Doctors$ | async as Doctors ">
+      <section  class="h-auto w-auto  py-5 lg:10  mr-7">
+        <div   class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 ml-8">
             <!-- Card 1 -->
-            <div data-aos="flip-left"
+            <div *ngFor="let doctor of Doctors"  data-aos="flip-left"
             data-aos-easing="ease-out-cubic"
             data-aos-duration="2000" class="relative bg-white shadow-lg rounded-lg overflow-hidden">
             
@@ -115,8 +117,8 @@
                     </div>
                 </div>
                 <div class="ml-5">
-                    <button class="rounded-md mb-2  px-2 bg-green-200 ">Cardiology Department</button>
-                    <h1 class="mb-1  text-black lg:text-bold">Dr.Mohamed Faris</h1>
+                    <button class="rounded-md mb-2  px-2 bg-green-200 ">{{doctor.professionalDetails.specialisedDepartment}}</button>
+                    <h1 class="mb-1  text-black lg:text-bold">Dr.{{doctor.personalDetails.firstName}} {{doctor.personalDetails.lastName}}</h1>
                     <p class="mb-1 text-lg lg:text-1xl">Cardiologist</p>
                     <button class="rounded-full px-6 py-3 ml-24 mb-3 items-center bg-blue-600 text-white">Book Now</button>
 
@@ -130,113 +132,14 @@
 
             </div>
 
-            <!-- card-2 -->
-            <div data-aos="flip-left"
-            data-aos-easing="ease-out-cubic"
-            data-aos-duration="2000" class="relative bg-white shadow-lg rounded-lg overflow-hidden">
-            
-                <div class="relative ">
-                    <!-- Image Container -->
-                    <div class="bg-white p-5 rounded-lg">
-                        <img src="assets/Images/Doctor1.jpeg" alt="" class="object-cover w-full h-auto rounded-lg">
-                    </div>
-                     
-                   
-                    <!-- Heart Icon Overlay -->
-                    <div class="absolute top-6 right-6 bg-white p-1 rounded-full shadow-md">
-                        <svg class="w-6 h-6 text-red-500 cursor-pointer hover:text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.901 1.604-.901 1.904 0l1.87 5.679a1 1 0 00.95.69h5.97c.969 0 1.371 1.24.588 1.81l-4.823 3.706a1 1 0 00-.363 1.118l1.87 5.68c.3.902-.755 1.66-1.54 1.118l-4.823-3.706a1 1 0 00-1.177 0l-4.823 3.706c-.785.542-1.838-.216-1.539-1.118l1.87-5.68a1 1 0 00-.363-1.118L2.45 11.118C1.67 10.548 2.07 9.31 3.038 9.31h5.97a1 1 0 00.951-.69l1.87-5.679z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="ml-5">
-                    <button class="rounded-md mb-2  px-2 bg-green-200 ">Cardiology Department</button>
-                    <h1 class="mb-1  text-black lg:text-bold">Dr.Mohamed Faris</h1>
-                    <p class="mb-1 text-lg lg:text-1xl">Cardiologist</p>
-                    <button class="rounded-full px-6 py-3 ml-24 mb-3 items-center bg-blue-600 text-white">Book Now</button>
-
-                </div>
-                
-                   
-                   
-                    
-           
-           
-
-            </div>
-
-            <!-- card-3 -->
-            <div data-aos="flip-left"
-            data-aos-easing="ease-out-cubic"
-            data-aos-duration="2000" class="relative bg-white shadow-lg rounded-lg overflow-hidden">
-            
-                <div class="relative ">
-                    <!-- Image Container -->
-                    <div class="bg-white p-5 rounded-lg">
-                        <img src="assets/Images/Doctor1.jpeg" alt="" class="object-cover w-full h-auto rounded-lg">
-                    </div>
-                     
-                   
-                    <!-- Heart Icon Overlay -->
-                    <div class="absolute top-6 right-6 bg-white p-1 rounded-full shadow-md">
-                        <svg class="w-6 h-6 text-red-500 cursor-pointer hover:text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.901 1.604-.901 1.904 0l1.87 5.679a1 1 0 00.95.69h5.97c.969 0 1.371 1.24.588 1.81l-4.823 3.706a1 1 0 00-.363 1.118l1.87 5.68c.3.902-.755 1.66-1.54 1.118l-4.823-3.706a1 1 0 00-1.177 0l-4.823 3.706c-.785.542-1.838-.216-1.539-1.118l1.87-5.68a1 1 0 00-.363-1.118L2.45 11.118C1.67 10.548 2.07 9.31 3.038 9.31h5.97a1 1 0 00.951-.69l1.87-5.679z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="ml-5">
-                    <button class="rounded-md mb-2  px-2 bg-green-200 ">Cardiology Department</button>
-                    <h1 class="mb-1  text-black lg:text-bold">Dr.Mohamed Faris</h1>
-                    <p class="mb-1 text-lg lg:text-1xl">Cardiologist</p>
-                    <button class="rounded-full px-6 py-3 ml-24 mb-3 items-center bg-blue-600 text-white">Book Now</button>
-
-                </div>
-                
-                   
-                   
-                    
-           
-           
-
-            </div>
-            <!-- card-4 -->
-            <div data-aos="flip-left"
-            data-aos-easing="ease-out-cubic"
-            data-aos-duration="2000" class="relative bg-white shadow-lg rounded-lg overflow-hidden">
-            
-                <div class="relative ">
-                    <!-- Image Container -->
-                    <div class="bg-white p-5 rounded-lg">
-                        <img src="assets/Images/Doctor1.jpeg" alt="" class="object-cover w-full h-auto rounded-lg">
-                    </div>
-                     
-                   
-                    <!-- Heart Icon Overlay -->
-                    <div class="absolute top-6 right-6 bg-white p-1 rounded-full shadow-md">
-                        <svg class="w-6 h-6 text-red-500 cursor-pointer hover:text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.901 1.604-.901 1.904 0l1.87 5.679a1 1 0 00.95.69h5.97c.969 0 1.371 1.24.588 1.81l-4.823 3.706a1 1 0 00-.363 1.118l1.87 5.68c.3.902-.755 1.66-1.54 1.118l-4.823-3.706a1 1 0 00-1.177 0l-4.823 3.706c-.785.542-1.838-.216-1.539-1.118l1.87-5.68a1 1 0 00-.363-1.118L2.45 11.118C1.67 10.548 2.07 9.31 3.038 9.31h5.97a1 1 0 00.951-.69l1.87-5.679z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="ml-5">
-                    <button class="rounded-md mb-2  px-2 bg-green-200 ">Cardiology Department</button>
-                    <h1 class="mb-1  text-black lg:text-bold">Dr.Mohamed Faris</h1>
-                    <p class="mb-1 text-lg lg:text-1xl">Cardiologist</p>
-                    <button class="rounded-full px-6 py-3 ml-24 mb-3 items-center bg-blue-600 text-white">Book Now</button>
-
-                </div>
-                
-                   
-                   
-                    
-           
-           
-
-            </div>
               
         </div>
         
+        
     </section>
+</div>
+ 
+   
    
 
     

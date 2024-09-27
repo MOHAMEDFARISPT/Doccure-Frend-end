@@ -10,14 +10,19 @@ export const userreducer = createReducer(
     loading: true,
     error: null
   })),
-  on(AuthActions.loginSuccess, (state, { user, Token }) => ({
+  on(AuthActions.loginSuccess, (state, { user, Token }) => {
+   
+    return{
     ...state,
     user,
     Token,
     users: [],
     loading: false,
     error: null
-  })),
+
+   }
+   
+  }),
   on(AuthActions.loginFailure, (state, { error }) => ({
     ...state,
     user: null,
@@ -25,7 +30,34 @@ export const userreducer = createReducer(
     token: null,
     loading: false,
     error
-  }))
+  })),
+  on(AuthActions.loaduser,(state)=>{
+    return {
+      ...state,
+      loading:true,
+      error:null
+    }
+  }),
+  on(AuthActions.loaduserSucess,(state,{user})=>{
+    return {
+      ...state,
+      user,
+      users: [],
+      loading:false,
+      error:null
+    }
+  }),
+  on(AuthActions.loadUserFailure,(state,{error})=>{
+    return {
+      ...state,
+      error,
+      users: [],
+      loading:false,
+      user:null
+
+    }
+  })
+
 
 
 )

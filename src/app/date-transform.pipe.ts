@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateTransformPipe implements PipeTransform {
 
-  transform(value: string | Date, format: string = 'MMM d, y'): string | null {
+  transform(value: string | Date |undefined, format: string = 'MMM d, y'): string | null  {
     const datePipe = new DatePipe('en-US');
     return datePipe.transform(value, format);
   }

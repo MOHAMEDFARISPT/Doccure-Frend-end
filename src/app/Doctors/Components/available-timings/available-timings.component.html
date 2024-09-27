@@ -93,23 +93,43 @@
                 
                 </div>
                 
-
                 <div *ngIf="selectedTimes.length > 0; else noSlots">
                   <div class="grid gap-2 mb-2 p-2 mt-6 text-center grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-auto">
                     <div *ngFor="let time of selectedTimes" class="relative flex items-center space-x-1">
                       <!-- Time slot container with relative position -->
-                      <p *ngIf="time" class="relative bg-gray-100 px-5 py-3 border hover:bg-black hover:text-white border-gray-200 rounded flex text-[12px] items-center space-x-2">
+                      <p 
+                        *ngIf="time"
+                        [ngClass]="{
+                          'bg-customBlue text-white': selectedTime === time && !time.isBooked, 
+                          'border-green-500': !time.isBooked,  
+                          'border-black': time.isBooked,      
+                       
+                        }"
+                        class="relative px-5 py-3 border rounded flex text-[12px] items-center space-x-2"
+                        (click)="!time.isBooked && selectTime(time)" 
+                        [title]="time.isBooked ? 'Booked' : ''"
+                      >
                         <i class="fa fa-clock mr-3 text-gray-500"></i>
-                        {{ time.startTime | timeFormat }} - {{ time.endTime | timeFormat }}
+                
+                        <span *ngIf="!time.isBooked">
+                          <!-- Show time range for available slot -->
+                          {{ time.startTime | timeFormat }} - {{ time.endTime | timeFormat }}
                         
-                        <!-- Delete icon, hidden by default, visible on hover -->
-                        <i 
-                          class="fa fa-trash text-red-600 absolute top-1 right-1 cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-100 ease-in-out" (click)="deleteSlot(time._id)">
-                        </i>
+                          <!-- Show delete icon only if slot is not booked -->
+                          <i *ngIf="!time.isBooked" class="fas fa-trash text-red-600 absolute top-1 right-1 cursor-pointer" (click)="deleteSlot(time._id)"></i>
+                        </span>
+           
+                        
+                        <span *ngIf="time.isBooked" class="booked-slot-tooltip z-10">
+                          <!-- Show time range with tooltip for booked slot -->
+                          {{ time.startTime | timeFormat }} - {{ time.endTime | timeFormat }}
+                        </span>
+                        
                       </p>
                     </div>
                   </div>
                 </div>
+                
                 
                 
                 

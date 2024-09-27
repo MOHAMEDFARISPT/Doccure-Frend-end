@@ -12,6 +12,63 @@
         <hr class="text-gray-200 mt-4 ml-0">
     
      <app-searchand-filters></app-searchand-filters>
+     <div *ngIf="Appointments$ | async as appointments; else loading" class="grid grid-cols-1 gap-7 mt-8 bg-white-300 p-4">
+      <!-- Inner grid with 5 columns on md screens and 1 column on smaller screens -->
+      <div *ngFor="let appointment of appointments" class="grid md:grid-cols-4 sm:grid-cols-1 bg-white shadow-md border rounded-lg gap-2 p-3">
+        <div class="flex md:flex-row flex-col sm:ml-2 md:items-center bg-white p-1  w-auto">
+          <img src="/assets/Images/Doctor1.jpeg" alt="Doctor Image" class="w-20 h-20 p-2 rounded-xl">
+          <div class="ml-1 ">
+            <p class="text-black sm:text-xs  font-semibold">{{appointment.doctorId.personalDetails.firstName}} {{appointment.doctorId.personalDetails.lastName}}</p>
+            <p class="text-gray-600 sm:text-sm">{{appointment.doctorId.professionalDetails.specialisedDepartment | capitalize}}</p>
+          </div>
+        </div>
+
+
+        
+        <div class="bg-white md:pl-7 sm:pl-10 ">
+          <div class="md:ml-4 ml-1 md:mt-6 sm:mt-2">
+            <p class="sm:text-xs "><i class="fa fa-clock mr-2"></i>{{appointment.slotId.day}} {{appointment.slotId.startTime | timeFormat }}</p>
+            <p class="sm:text-xs "><i class="fa fa-camera mr-2"></i>{{appointment.consultationType}}</p>
+
+    
+          </div>
+        </div>
+       
+        <div class="bg-white pl-1">
+          <div class="md:ml-1 ml-1  md:mt-6 sm:mt-3 ">
+            <p class="sm:text-xs">
+              <i class="fa fa-envelope hidden md:inline mr-1"></i> 
+             {{appointment.doctorId.personalDetails.email}}
+            </p>
+            
+            
+            <p class="sm:text-xs "><i class="fa fa-phone mr-2"></i>+91 {{appointment.doctorId.personalDetails.contactNumber}}</p>
+    
+          </div>
+        </div>  
+        <div class="bg-white pl-1">
+          <div class="ml-1 md:mt-8 sm:mt-3">
+            <div class="flex md:flex-row sm:flex-col md:ml-7 ml-2">
+              <p *ngIf="appointment.consultaionStatus=='upcoming'" class="inline-block border text-xs cursor-pointer rounded-xl border-black  p-1 bg-green-500 mr-16">{{appointment.consultaionStatus}}</p>
+              <p *ngIf="appointment.consultaionStatus=='cancelled'" class="inline-block border text-xs cursor-pointer rounded-xl border-black  p-1 bg-red-500 mr-16">{{appointment.consultaionStatus}}</p>
+              <p  [routerLink]="['/appointment-detailes',appointment._id]"  class="inline-block sm:border cursor-pointer sm:border-black  sm:rounded-xl md:border-none">
+                <i class="fa fa-eye text-lg"></i>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+
+      
+      </div>
+      
+    
+    
+    </div>
+
+    <ng-template #loading>
+      <p>Loading...</p>
+    </ng-template>
     </div>
     </div>
 

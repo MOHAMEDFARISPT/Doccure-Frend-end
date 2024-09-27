@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { UserServicesService } from '../Users/services/user-services.service';
 import { DoctorServiceService } from '../Doctors/services/doctor-service.service'
 import * as GlobalActions from './global.action';
@@ -45,6 +45,21 @@ export class GlobalEffects {
       )
     )
   );
+
+
+
+  loadAppointments$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GlobalActions.loadAppointments),
+      switchMap(() =>
+        this.doctorService.getAllAppointments().pipe(
+          map(appointments => GlobalActions.loadAppointmentsSuccess({ Appointments: appointments })),  // Bind the response from the service to `Appointments`
+          catchError(error => of(GlobalActions.loadAppointmentsFailure({ error })))
+        )
+      )
+    )
+  );
+  
 
  
 }

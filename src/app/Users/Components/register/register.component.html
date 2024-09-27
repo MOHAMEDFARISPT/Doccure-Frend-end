@@ -93,6 +93,7 @@
           <div *ngIf="userForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</div>
           <div *ngIf="userForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</div>
         </div>
+        
       </div>
    <div *ngIf="loading">
     <div class="loader">

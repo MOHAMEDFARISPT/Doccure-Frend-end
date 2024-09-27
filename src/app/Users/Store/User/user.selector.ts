@@ -12,6 +12,10 @@ export const selectLoading = createSelector(
 
 // Selector to get the `user` slice from the state
 export const selectUser = createSelector(
-    (state: AppState) => state.user, // Ensure `user` is a part of `AppState`
-    (user: UserModel | null) => user
-  );
+  selectUserState,
+  (state) => state.user 
+);
+
+
+
+

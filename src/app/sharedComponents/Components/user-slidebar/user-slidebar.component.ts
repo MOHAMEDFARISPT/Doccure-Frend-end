@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { filter, Observable, take } from 'rxjs';
 import { UserModel, user } from '../../../Users/Store/User/userModel';
 import { Store, select } from '@ngrx/store';
-import { selectUser } from '../../../Users/Store/User/user.selector';
 import { AppState } from '../../../Users/Store/User/user.state';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import  * as userAction from '../../../Users/Store/User/user.actions'
+import { selectUser } from '../../../Users/Store/User/user.selector';
 
 @Component({
   selector: 'app-user-slidebar',
@@ -18,12 +19,17 @@ import { RouterModule } from '@angular/router';
 export class UserSlidebarComponent  implements OnInit{
   isSidebarOpen = false;
   activeItem: string = 'My Appointments';
-  user$!: Observable<UserModel | null>;
+  user$!:Observable<UserModel | null>
+  userId!:string | undefined;
+
+  
 
 
 
 
-  constructor(private store:Store<AppState>,
+  constructor(
+    private store:Store<AppState>,
+
     private router:Router
   ){}
 
@@ -47,12 +53,28 @@ export class UserSlidebarComponent  implements OnInit{
 
   }
 
- 
-
 
 
   ngOnInit(): void {
+   
+    this.store.dispatch(userAction.loaduser());
+    this.user$ = this.store.pipe(select(selectUser));
+
+    this.user$.subscribe((user)=>{
+      
+      this.userId=user?._id
+    
+
+    })
+   
+
+    
+   
   }
+
+
+
+  
 
 
    

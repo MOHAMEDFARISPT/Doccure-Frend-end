@@ -1,0 +1,20 @@
+.booked-slot-tooltip {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .booked-slot-tooltip:hover::after {
+    content: "Slot Already Booked";
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    top: -30px; /* Adjust according to the desired position */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 100;
+  }
+  

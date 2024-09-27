@@ -1,0 +1,144 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="(user$ |async) as user" class="flex">
+    <!-- Sidebar Component -->
+  <app-user-slidebar></app-user-slidebar>
+  <div *ngIf="(Appointment$ | async ) as Appointment" class="flex-1 p-6 md:ml-14">
+  
+    <h1 class="text-2xl font-semibold text-black"><i  [routerLink]="['/my-appointments',user._id]" class="fa fa-arrow-left mr-4"></i>Appointment Detailes</h1>
+    <hr class="text-gray-200 mt-4 ml-0">
+
+    <div class="relative border mt-10 p-4 border-gray-300 rounded-lg w-full h-auto">
+      <div *ngIf="Appointment.consultaionStatus=='upcoming'" class="absolute top-0 right-0 bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-bl-lg">
+        {{Appointment.consultaionStatus}} Appointment
+      </div>
+      <div *ngIf="Appointment.consultaionStatus=='cancelled'" class="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-bl-lg">
+        {{Appointment.consultaionStatus}} Appointment
+      </div>
+      <!-- Main container for doctor profile -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+        
+        <!-- Doctor Image and Name (First Horizontal Section) -->
+        <div class="flex items-center space-x-6">
+          <img src="assets/Images/Doctor1.jpeg" alt="Doctor-Profile" class="w-24 h-24 md:w-32 md:h-32 rounded-xl">
+          <div class="flex flex-col">
+            <div class="text-lg font-semibold">
+              <i class="fas fa-user-md"></i> Dr. {{Appointment.doctorId.personalDetails.firstName}}  {{Appointment.doctorId.personalDetails.lastName}}
+            </div>
+            <div class="text-gray-600 text-sm">
+              <i class="fas fa-stethoscope"></i>  {{Appointment.doctorId.professionalDetails.specialisedDepartment| capitalize}}  <!-- Department (Replace with dynamic department) -->
+            </div>
+            <div class="hidden lg:inline text-gray-600 text-sm w-auto">
+            {{Appointment.doctorId.personalDetails.email}}
+            </div>
+            
+            <div class="text-gray-600 text-sm">
+              {{Appointment.doctorId.personalDetails.contactNumber}}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Appointment Time (Second Horizontal Section) -->
+        <div class="flex flex-col justify-center md:items-start ml-0 md:ml-28">
+          <div class="flex-col">
+            <!-- Email: Show on small to medium screens, hide on large -->
+            <div class="sm:inline md:hidden text-gray-600 text-sm">
+              {{Appointment.doctorId.personalDetails.email}}
+            </div>
+            <div class="text-gray-700 text-sm mb-2">
+              <i class="fa fa-clock text-sm"></i>
+              Appointment Time: {{Appointment.slotId.startTime | timeFormat}} <!-- Replace with dynamic time -->
+            </div>
+            <div class="text-gray-700  text-sm">
+             <i class="fas fa-building"></i> {{Appointment.consultationType}}
+            </div>
+          </div>
+        </div>
+        
+        <!-- View More Button and Additional Info (Third Horizontal Section) -->
+        <div class="flex md:justify-end sm:justify-start mt-4 md:mt-0">
+          <div class="flex-col ">
+            <!-- Status: Upcoming -->
+          
+            
+            <!-- Consultation Fee -->
+            <div class="text-sm mb-2">
+              Consultation Fee: <i class="fa fa-inr"></i> {{Appointment.totalAmount}}
+            </div>
+            <div class="text-sm">
+              Payment Method:  {{Appointment.PaymentMethod}} 
+            </div>
+          </div>
+        </div>
+
+         
+        <div *ngIf="Appointment.consultaionStatus === 'upcoming'" class="md:col-span-4">
+          <button class="w-full bg-red-400 text-white font-semibold p-2 rounded-lg mt-4" (click)="openModal(Appointment._id)">
+            Cancel Appointment
+          </button>
+        </div>
+        
+        <!-- Modal -->
+        <div *ngIf="showModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <p class="text-lg font-semibold mb-4" *ngIf="!askReason">Are you sure you want to cancel this appointment?</p>
+            
+            <!-- Ask for reason once Yes is clicked -->
+            <div *ngIf="askReason">
+              <p class="text-lg font-semibold mb-4">Please select a reason for cancellation:</p>
+              
+              <!-- Radio Buttons for Options -->
+              <div class="mb-4">
+                <label class="block">
+                  <input type="radio" [(ngModel)]="cancellationReason" value="Doctor unavailable" />
+                  Doctor unavailable
+                </label>
+                <label class="block">
+                  <input type="radio" [(ngModel)]="cancellationReason" value="Changed my mind" />
+                  Changed my mind
+                </label>
+                <label class="block">
+                  <input type="radio" [(ngModel)]="cancellationReason" value="Found another doctor" />
+                  Found another doctor
+                </label>
+                <label class="block">
+                  <input type="radio" [(ngModel)]="cancellationReason" value="Other" />
+                  Other
+                </label>
+              </div>
+        
+              <!-- Additional input for 'Other' reason if selected -->
+              <div *ngIf="cancellationReason === 'Other'">
+                <input type="text" [(ngModel)]="otherReason" placeholder="Please specify" class="border border-gray-300 p-2 rounded-lg w-full mb-4">
+              </div>
+            </div>
+        
+            <div class="flex justify-end space-x-4">
+              <button class="bg-gray-300 p-2 rounded-lg" (click)="closeModal()">No</button>
+              <button *ngIf="!askReason" class="bg-red-500 text-white p-2 rounded-lg" (click)="askForReason()">Yes, Cancel</button>
+              <button *ngIf="askReason" class="bg-red-500 text-white p-2 rounded-lg" (click)="submitCancellation()">Submit</button>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+    
+      </div>
+    </div>
+    
+    
+    
+    
+
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+    </div>
+
+  
+    
+
+  </div>
+
+  

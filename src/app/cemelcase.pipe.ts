@@ -4,19 +4,13 @@ import { PipeTransform,Pipe } from "@angular/core";
 
 
 @Pipe({
-    name:'camelCase',
+    name:'capitalize',
     standalone:true
 })
 
-export class camelCase implements PipeTransform{
-   
-    transform(value: string): any {
-        if (!value) return value;
-    
-        return value
-          .replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) =>
-            index === 0 ? match.toLowerCase() : match.toUpperCase()
-          ).replace(/\s+/g, '');
-      }
-
-}
+export class CapitalizePipe implements PipeTransform {
+    transform(value: string): string {
+      if (!value) return value;
+      return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    }
+  }

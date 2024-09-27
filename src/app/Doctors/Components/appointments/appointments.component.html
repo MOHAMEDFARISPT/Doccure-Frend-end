@@ -1,0 +1,102 @@
+<div class="flex">
+ 
+    <app-sidebar></app-sidebar>
+   
+    <div class="flex-1 p-6 md:ml-14 mt-1">
+     
+        <h1 class="text-2xl font-semibold text-black mt-5">Appointments</h1>
+        <hr class="text-gray-200 mt-4 ml-0">
+    
+        <div class="p-4 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+            <!-- Button Group -->
+            <div  class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
+                <button class="w-full md:w-auto px-4 py-2 bg-blue-900 text-white rounded-md  focus:outline-none">Upcoming</button>
+                <button class="w-full md:w-auto px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none">Cancelled</button>
+                <button class="w-full md:w-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none">Completed</button>
+            </div>
+        
+            <!-- Filters -->
+            <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                <!-- Date Filter -->
+                <input type="date" class="w-full md:w-auto p-2 border border-gray-300 rounded-md">
+              <!-- Search Bar -->
+              <div class="relative">
+                <input type="text" id="searchBar" placeholder="Search..." class="w-full md:w-auto p-2 border border-gray-300 rounded-md bg-white text-gray-700 pr-12">
+                <button type="button" class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM21 21l-4.35-4.35"/>
+                  </svg>
+                  <span class="sr-only">Search</span>
+                </button>
+
+                
+              </div>
+
+              
+            </div>
+
+           
+              </div>
+
+              <div *ngIf="Appointments$ | async as appointments; else loading" class="grid grid-cols-1 gap-7 mt-8 bg-white-300 p-4">
+                <!-- Inner grid with 5 columns on md screens and 1 column on smaller screens -->
+                <div *ngFor="let appointment of appointments" class="grid md:grid-cols-4 sm:grid-cols-1 bg-white shadow-md border rounded-lg gap-2 p-3">
+                  <div class="flex md:flex-row flex-col sm:ml-2 md:items-center bg-white p-1  w-auto">
+                    <img src="assets/Images/Ảnh profile.jpeg" alt="Doctor Image" class="w-20 h-20 p-2 rounded-xl">
+                    <div class="ml-1 ">
+                      <p class="text-black sm:text-xs  font-semibold">{{appointment.patientId.firstName}} {{appointment.patientId.lastName}}</p>
+
+                    </div>
+                  </div>
+                  
+                  <div class="bg-white md:pl-7 sm:pl-10 ">
+                    <div class="md:ml-4 ml-1 md:mt-6 sm:mt-2">
+                      <p class="sm:text-xs "><i class="fa fa-clock mr-2"></i>{{appointment.slotId.day}} {{appointment.slotId.startTime | timeFormat }}</p>
+                      <p class="sm:text-xs "><i class="fa fa-camera mr-2"></i>{{appointment.consultationType}}</p>
+              
+                    </div>
+                  </div>
+                 
+                  <div class="bg-white pl-1">
+                    <div class="md:ml-1 ml-1  md:mt-6 sm:mt-3 ">
+                      <p class="sm:text-xs">
+                        <i class="fa fa-envelope hidden md:inline mr-1"></i> 
+                       {{appointment.patientId.email}}
+                  
+                      </p>
+                      
+                      
+                      <p class="sm:text-xs "><i class="fa fa-phone mr-2"></i>+91 {{appointment.patientId.contactNumber}}</p>
+              
+                    </div>
+                  </div>  
+                  <div class="bg-white pl-1">
+                    <div class="ml-1 md:mt-8 sm:mt-3">
+                      <div class="flex md:flex-row sm:flex-col md:ml-7 ml-2">
+                        <p *ngIf="appointment.consultaionStatus=='upcoming'" class="inline-block border text-xs cursor-pointer rounded-xl border-black  p-1 bg-green-500 mr-16">{{appointment.consultaionStatus}}</p>
+                        <p *ngIf="appointment.consultaionStatus=='cancelled'" class="inline-block border text-xs cursor-pointer rounded-xl border-black  p-1 bg-red-500 mr-16">{{appointment.consultaionStatus}}</p>
+                        <p    class="inline-block sm:border cursor-pointer sm:border-black  sm:rounded-xl md:border-none">
+                          <i class="fa fa-eye text-lg"></i>
+                        </p>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+                 
+                </div>
+              
+              
+              </div>
+          
+              <ng-template #loading>
+                <p>Loading...</p>
+              </ng-template>
+              </div>
+        
+            
+        
+  
+
+
+    </div>
